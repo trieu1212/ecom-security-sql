@@ -1,6 +1,6 @@
 import React from 'react'
 import { useState } from 'react'
-import { loginUser } from '../redux/apis/authApiRequests'
+import { loginUser } from '../../redux/apis/authApiRequests'
 import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux'
 const Login = () => {

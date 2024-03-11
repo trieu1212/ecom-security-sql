@@ -13,8 +13,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
-      Comment.hasOne(models.Product)
-      Comment.hasOne(models.User)
+      Comment.belongsTo(models.Product)
+      Comment.belongsTo(models.User)
     }
   }
   Comment.init({

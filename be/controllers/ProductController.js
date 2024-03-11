@@ -1,5 +1,39 @@
 const db = require('../orm/models/index');
 const ProductController = {
+  getAllProduct: async(req,res)=>{
+    try {
+      const product = await db.Product.findAll(
+        {attributes:['id','title','description','image','price','inStock']},
+      );
+      res.status(200).json(product)
+    }catch(err){
+      res.status(500).json(err)
+    }
+  },
+  getOneProduct: async(req,res)=>{
+    const id = req.params.id
+    try {
+      const product = await db.Product.findByPk(id,
+        {
+          include:[{
+            model:db.Comment,
+            attributes:['id','comment','UserId'],
+            include:{
+              model:db.User,
+              attributes:['id','username']
+            }
+          },
+          {
+            model:db.Category,
+            attributes:['id','name']
+          }]
+        }
+      )
+      res.status(200).json(product)
+    } catch (error) {
+      res.status(500).json({message:error.message})
+    }
+  }
   // getAllProduct: async (req, res) => {
   //   const qNew = req.query.new;
   //   const qCategory = req.query.category;

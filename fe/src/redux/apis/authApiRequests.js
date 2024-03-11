@@ -31,7 +31,7 @@ export const logoutUser = async (axiosJWT,dispatch,navigate,accessToken) =>{
             }
         })
         dispatch(logout(res.data))
-        navigate('/login')
+        navigate('/')
     } catch (error) {
         console.log(error)
     }

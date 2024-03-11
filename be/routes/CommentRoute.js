@@ -4,5 +4,6 @@ const MiddlewareController = require('../controllers/MiddlewareController');
 const router = express.Router();
 
 router.post('/create',MiddlewareController.verifyTokenAndAdminAuth,CommentController.createComment)
+router.get('/',CommentController.getAllComment)
 
 module.exports = router;
