@@ -11,7 +11,7 @@ const AuthController = {
         isAdmin: user.isAdmin,
       },
       process.env.JWT_ACCESS_KEY,
-      { expiresIn: "2m" }
+      { expiresIn: "5m" }
     );
   },
   generateRefreshToken: (user) => {
@@ -81,16 +81,16 @@ const AuthController = {
             const newAccessToken = AuthController.generateAccessToken(user);
             const newRefreshToken = AuthController.generateRefreshToken(user);
             refreshTokens.push(newRefreshToken);
-            res.status(200).json({ accessToken: newAccessToken });
+            res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken});
           }
         });
       }
     }
   },
   logoutUser: async (req, res) => {
-    res.clearCookie("refreshToken");
+    const {refreshToken} = req.body 
     refreshTokens = refreshTokens.filter(
-      (token) => token !== req.cookies.refreshToken
+      (token) => token !== refreshToken
     );
     res.status(200).json({ message: "User logged out" });
   },

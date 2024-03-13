@@ -14,9 +14,6 @@ export const authSlice = createSlice({
             isError:false,
             isSuccess:false
         },
-        refreshToken:{
-            currentToken:null
-        }
     },
     reducers:{
         loginStart: (state) =>{
@@ -62,6 +59,5 @@ export const {loginStart,
             registerError,
             registerStart,
             registerSuccess,
-            logout,
-            getRefreshTokenCookie} = authSlice.actions;
+            logout,} = authSlice.actions;
 export default authSlice.reducer;

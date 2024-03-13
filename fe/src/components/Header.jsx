@@ -17,7 +17,7 @@ const Header = () => {
   let axiosJWT = createAxios(user, dispatch, logout,refreshToken);
   const handleLogout = (e) => {
     e.preventDefault();
-    logoutUser(axiosJWT, dispatch, navigate, accessToken,user?.id);
+    logoutUser(axiosJWT, dispatch, navigate, accessToken,refreshToken);
   };
   return (
         <>
