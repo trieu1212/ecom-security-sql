@@ -1,12 +1,13 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { logoutUser } from "../redux/apis/authApiRequests";
-import { createAxios } from "../services/axiosJWT";
-import { logout } from "../redux/authSlice";
-
+import { logoutUser } from "../../redux/apis/authApiRequests";
+import { createAxios } from "../../services/axiosJWT";
+import { logout } from "../../redux/authSlice";
+import './Header.css'
 const Header = () => {
+  const location = useLocation()
   const accessToken = useSelector(
     (state) => state.auth.login.currentUser?.accessToken
   );
@@ -19,6 +20,9 @@ const Header = () => {
     e.preventDefault();
     logoutUser(axiosJWT, dispatch, navigate, accessToken,refreshToken);
   };
+  if(location.pathname==="/login" || location.pathname==="/register"){
+    return null
+  }
   return (
         <>
             {user? (<p>Xin chào {user?.username}!</p>):""}

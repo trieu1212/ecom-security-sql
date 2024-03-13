@@ -15,18 +15,12 @@ const ProductController = {
     try {
       const product = await db.Product.findByPk(id,
         {
-          include:[{
-            model:db.Comment,
-            attributes:['id','comment','UserId'],
-            include:{
-              model:db.User,
-              attributes:['id','username']
+          include:[
+            {
+              model:db.Category,
+              attributes:['id','name']
             }
-          },
-          {
-            model:db.Category,
-            attributes:['id','name']
-          }]
+          ]
         }
       )
       res.status(200).json(product)

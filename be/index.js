@@ -20,7 +20,7 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(morgan("common"))
 app.use(cookieParser())
-app.use(helmet())
+// app.use(helmet())
 
 connection()
 app.listen(PORT, (req,res)=>{

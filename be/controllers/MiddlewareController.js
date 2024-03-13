@@ -32,7 +32,7 @@ const MiddlewareController = {
     MiddlewareController.verifyToken(req, res, () => {
       console.log(req.user.id);
       console.log(req.params.id);
-        if (req.user.id === +req.params.id || req.user.isAdmin) {
+        if (req.user.id === +req.params.userId || req.user.isAdmin) {
             next(); 
         } else {
             return res.status(403).json({ message: "You are not allowed to do that" });
