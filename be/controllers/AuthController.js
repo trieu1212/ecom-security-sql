@@ -46,22 +46,17 @@ const AuthController = {
         where: { username: username },
       });
       if (!user) {
-        res.status(400).json({ message: "user not found" });
+        return res.status(400).json({ message: "user not found" });
       } else {
         const validPass = await bcrypt.compare(password, user.password);
         if (!validPass) {
-          res.status(400).json({ message: "wrong password" });
+        return res.status(400).json({ message: "wrong password" });
         } else {
           const accessToken = AuthController.generateAccessToken(user);
           const refreshToken = AuthController.generateRefreshToken(user);
           refreshTokens.push(refreshToken);
-          res.cookie("refreshToken", refreshToken, {
-            httpOnly: true,
-            path: "/",
-            sameSite: "strict",
-          });
           const { password, ...info } = user.dataValues;
-          res.status(200).json({...info, accessToken });
+          res.status(200).json({...info, accessToken, refreshToken});
         }
       }
     } catch (error) {
@@ -69,7 +64,7 @@ const AuthController = {
     }
   },
   refresh: async (req, res) => {
-    const refreshToken = req.cookies.refreshToken;
+    const {refreshToken} = req.body;
     if (!refreshToken) {
       res.status(401).json({ message: "User not authenticated" });
     } else {
@@ -85,11 +80,6 @@ const AuthController = {
             );
             const newAccessToken = AuthController.generateAccessToken(user);
             const newRefreshToken = AuthController.generateRefreshToken(user);
-            res.cookie("refreshToken", newRefreshToken, {
-              httpOnly: true,
-              path: "/",
-              sameSite: "strict",
-            });
             refreshTokens.push(newRefreshToken);
             res.status(200).json({ accessToken: newAccessToken });
           }

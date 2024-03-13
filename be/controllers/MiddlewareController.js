@@ -19,7 +19,7 @@ const MiddlewareController = {
   },
   verifyTokenAndAdminAuth: (req, res, next) => {
     MiddlewareController.verifyToken(req, res, () => {
-      if (req.user.id === req.params.id || req.user.isAdmin) {
+      if (req.user.isAdmin) {
         next();
       } else {
         return res
@@ -28,6 +28,15 @@ const MiddlewareController = {
       }
     });
   },
+  verifyTokenAndAuthorize: (req, res, next) => {
+    MiddlewareController.verifyToken(req, res, () => {
+        if (req.user.id === req.params.id || req.user.isAdmin) {
+            next(); 
+        } else {
+            return res.status(403).json({ message: "You are not allowed to do that" });
+        }
+    });
+}
 };
 
 module.exports = MiddlewareController;

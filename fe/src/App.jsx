@@ -4,8 +4,6 @@ import Home from './pages/Home/Home';
 import Login from './pages/Login/Login';
 import Checkout from './pages/Checkout/Checkout';
 import Cart from './pages/Cart/Cart';
-import { useSelector } from 'react-redux';
-import { Navigate } from 'react-router-dom';
 import Register from './pages/Register/Register';
 import ProductDetail from './pages/ProductDetail/ProductDetail';
 import Header from './components/Header';

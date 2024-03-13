@@ -4,7 +4,7 @@ export const authSlice = createSlice({
     name: "auth",
     initialState:{
         login:{
-            currentUser:null,
+            currentUser:null,//access,refresh
             isFetching:false,
             isError:false,
             isSuccess:false
@@ -13,6 +13,9 @@ export const authSlice = createSlice({
             isFetching:false,
             isError:false,
             isSuccess:false
+        },
+        refreshToken:{
+            currentToken:null
         }
     },
     reducers:{
@@ -49,9 +52,16 @@ export const authSlice = createSlice({
         },
         logout:(state) =>{
             state.login.currentUser=null
-        }
+        },
     }
 })
 
-export const {loginStart,loginSuccess,loginError,registerError,registerStart,registerSuccess,logout} = authSlice.actions;
+export const {loginStart,
+            loginSuccess,
+            loginError,
+            registerError,
+            registerStart,
+            registerSuccess,
+            logout,
+            getRefreshTokenCookie} = authSlice.actions;
 export default authSlice.reducer;

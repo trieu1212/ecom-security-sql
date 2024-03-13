@@ -3,26 +3,22 @@ import { useSelector } from "react-redux";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { logoutUser } from "../redux/apis/authApiRequests";
-import { loginSuccess } from "../redux/authSlice";
 import { createAxios } from "../services/axiosJWT";
+import { logout } from "../redux/authSlice";
 
 const Header = () => {
   const accessToken = useSelector(
     (state) => state.auth.login.currentUser?.accessToken
   );
   const user = useSelector((state) => state.auth.login?.currentUser);
+  const refreshToken = useSelector((state)=>state.auth.login?.currentUser?.refreshToken)
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  let axiosJWT = createAxios(user, dispatch, loginSuccess);
+  let axiosJWT = createAxios(user, dispatch, logout,refreshToken);
   const handleLogout = (e) => {
     e.preventDefault();
-    logoutUser(axiosJWT, dispatch, navigate, accessToken);
+    logoutUser(axiosJWT, dispatch, navigate, accessToken,user?.id);
   };
-//   useEffect(() => {
-//     if (!user) {
-//       navigate("/login");
-//     }
-//   }, []);
   return (
         <>
             {user? (<p>Xin chào {user?.username}!</p>):""}

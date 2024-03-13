@@ -1,6 +1,7 @@
 const express = require('express')
 const cors = require('cors')
 const morgan = require('morgan')
+const helmet = require('helmet')
 const dotenv = require('dotenv')
 const cookieParser = require('cookie-parser')
 const bodyParser = require('body-parser')
@@ -19,6 +20,7 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(morgan("common"))
 app.use(cookieParser())
+app.use(helmet())
 
 connection()
 app.listen(PORT, (req,res)=>{

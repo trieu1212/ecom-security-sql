@@ -12,6 +12,7 @@ import {
 import storage from 'redux-persist/lib/storage'
 import authSlice from './authSlice';
 import productSlice from './productSlice';
+import commentSlice from './commentSlice';
 
 
 const persistConfig = {
@@ -22,7 +23,8 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
     auth:authSlice,
-    product:productSlice
+    product:productSlice,
+    comment:commentSlice
 })
 
 const persistedReducer = persistReducer(persistConfig, rootReducer)
