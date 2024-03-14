@@ -1,5 +1,6 @@
 import axios from 'axios';
 import { loginError, loginStart, loginSuccess, logout, registerError, registerStart, registerSuccess } from '../authSlice';
+import {clearUserCart} from '../cartSlice'
 export const loginUser =async (user,dispatch,navigate) => {
     dispatch(loginStart());
     try {
@@ -30,6 +31,7 @@ export const logoutUser = async (axiosJWT,dispatch,navigate,accessToken,refreshT
             }
         })
         dispatch(logout(res.data))
+        dispatch(clearUserCart())
         navigate('/')
     } catch (error) {
         console.log(error)

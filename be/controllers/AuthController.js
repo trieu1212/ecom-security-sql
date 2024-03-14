@@ -81,6 +81,7 @@ const AuthController = {
             const newAccessToken = AuthController.generateAccessToken(user);
             const newRefreshToken = AuthController.generateRefreshToken(user);
             refreshTokens.push(newRefreshToken);
+            console.log(refreshTokens)
             res.status(200).json({ accessToken: newAccessToken, refreshToken: newRefreshToken});
           }
         });

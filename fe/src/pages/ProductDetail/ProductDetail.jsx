@@ -9,10 +9,14 @@ import {
   deleteCommentByUser,
   getProductComments,
 } from "../../redux/apis/commentApiRequests";
+import {
+  addUserCart,
+  getUserCart,
+  updateUserCart,
+} from "../../redux/apis/cartApiRequests";
 
 const ProductDetail = () => {
   const [comment, setComment] = useState("");
-  const [commentCount, setCommentCount] = useState(0);
   const { id } = useParams();
   const user = useSelector((state) => state.auth.login?.currentUser);
   const refreshToken = useSelector(
@@ -21,12 +25,13 @@ const ProductDetail = () => {
   const accessToken = useSelector(
     (state) => state.auth.login?.currentUser?.accessToken
   );
+  const cart = useSelector((state) => state.cart?.currentCart);
   const dispatch = useDispatch();
   let axiosJWT = createAxios(user, dispatch, loginSuccess, refreshToken);
   const product = useSelector((state) => state.product?.oneProduct);
   const comments = useSelector((state) => state.comment.comments);
   const commentFetching = useSelector((state) => state.comment.isFetching);
-  const handleAddComment = (e) => {
+  const handleAddComment = async (e) => {
     e.preventDefault();
     if (!comment) {
       alert("Vui lòng nhập nhận xét");
@@ -35,24 +40,52 @@ const ProductDetail = () => {
         comment: comment,
         productId: id,
       };
-      addCommentByUser(data, dispatch, axiosJWT, accessToken, user.id);
-      setCommentCount(commentCount + 1);
+      await addCommentByUser(data, dispatch, axiosJWT, accessToken, user.id);
+      await getProductComments(dispatch, id);
     }
     setComment("");
   };
-  const handleDeleteComment = (commentId) => {
-    deleteCommentByUser(commentId, dispatch, axiosJWT, accessToken, user.id);
-    setCommentCount(commentCount - 1);
+  const handleDeleteComment = async (commentId) => {
+    await deleteCommentByUser(
+      commentId,
+      dispatch,
+      axiosJWT,
+      accessToken,
+      user.id
+    );
+    await getProductComments(dispatch, id);
   };
   useEffect(() => {
-    if (comments) {
-      setCommentCount(comments.length);
-    }
-    getProductComments(dispatch, id);
-  }, [commentCount, dispatch, id]);
-  useEffect(() => {
     getOneProduct(dispatch, id);
+    getProductComments(dispatch, id);
   }, [dispatch, id]);
+  const handleAddCart = async (e) => {
+    e.preventDefault();
+    if (!user) {
+      alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng");
+    } else {
+      const existProduct = cart.find((item) => item.productId === id);
+      if (existProduct) {
+        const data = {
+          productId: id,
+          quantity: existProduct.quantity + 1,
+        };
+        await updateUserCart(data, dispatch, accessToken, axiosJWT, user.id);
+        await getUserCart(dispatch, axiosJWT, accessToken, user.id);
+      } else {
+        const data = {
+          productId: id,
+          quantity: 1,
+        };
+        try {
+          await addUserCart(data, dispatch, axiosJWT, accessToken, user.id);
+          await getUserCart(dispatch, axiosJWT, accessToken, user.id);
+        } catch (error) {
+          console.log(error);
+        }
+      }
+    }
+  };
   return (
     <>
       <div>
@@ -63,7 +96,7 @@ const ProductDetail = () => {
             <p>Danh mục sản phẩm: {product.Category.name}</p>
             <img src={product.image} alt="" height="320px" width="240px" />
             <p>Giá sản phẩm: {product.price} VNĐ</p>
-            <button>Thêm vào giỏ</button>
+            <button onClick={handleAddCart}>Thêm vào giỏ</button>
           </div>
         ) : (
           <p>Không tìm thấy sản phẩm</p>
