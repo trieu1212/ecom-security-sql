@@ -7,6 +7,8 @@ import { createAxios } from "../../services/axiosJWT";
 import { logout } from "../../redux/authSlice";
 import "./Header.css";
 import { getUserCart } from "../../redux/apis/cartApiRequests";
+import logo from "../../assets/images/logo.png";
+import cartImg from "../../assets/images/cart.png";
 const Header = () => {
   const location = useLocation();
   const accessToken = useSelector(
@@ -38,15 +40,43 @@ const Header = () => {
   return (
     <>
       <header>
-        {user ? <p>Xin chào {user?.username}!</p> : ""}
-        {accessToken ? (
-          <button onClick={handleLogout}>Đăng xuất</button>
-        ) : (
-          <Link to="/login">Đăng nhập</Link>
-        )}
-        <h2 style={{ cursor: "pointer" }} onClick={handleMoveToCartPage}>
-          {cart ? `Cart(${cart?.length})` : "Cart(0)"}
-        </h2>
+        <div id="header">
+          <Link to="/" class="logo">
+            <img src={logo} alt="" />
+          </Link>
+          <div id="menu">
+            <div class="item">
+              <Link to="/">Trang chủ</Link>
+            </div>
+            <div class="item">
+              <Link to="/">Sản phẩm</Link>
+            </div>
+            <div class="item">
+              <Link to="/contact">Liên hệ</Link>
+            </div>
+          </div>
+          <div id="actions">
+            <div class="item itemUser">
+              {accessToken ? (
+                <button className="buttonLogout" onClick={handleLogout}>
+                  Đăng xuất
+                </button>
+              ) : (
+                <Link
+                  className="buttonLogin"
+                  to="/login"
+                  style={{ color: "black" }}
+                >
+                  Đăng nhập
+                </Link>
+              )}
+            </div>
+            <div class="item itemCart">
+              <img src={cartImg} alt="" onClick={handleMoveToCartPage} />{" "}
+              {cart ? `(${cart?.length})` : "(0)"}
+            </div>
+          </div>
+        </div>
       </header>
     </>
   );

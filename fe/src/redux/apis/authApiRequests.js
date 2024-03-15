@@ -10,7 +10,8 @@ export const loginUser =async (user,dispatch,navigate) => {
         toast.success('Đăng nhập thành công')
         navigate('/')
     } catch (error) {
-        dispatch(loginError(error.response.data.message))
+        dispatch(loginError())
+        toast.error('Đăng nhập thất bại')
         toast.error()
     }
 }
