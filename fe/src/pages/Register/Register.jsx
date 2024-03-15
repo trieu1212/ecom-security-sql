@@ -3,6 +3,8 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { registerUser } from "../../redux/apis/authApiRequests";
+import InputForm from "../../components/InputForm/InputForm";
+import "./Register.css";
 const Register = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
@@ -30,42 +32,41 @@ const Register = () => {
   }, [user]);
   return (
     <>
-      <h1>Register</h1>
-      <form onSubmit={handleRegister}>
-        <div>
-          <label htmlFor="username">Username</label>
-          <input
-            type="text"
-            value={username}
-            onChange={(e) => setUsername(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="">Email</label>
-          <input
-            type="text"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-          />
-        </div>
-        <div>
-          <label htmlFor="password">Password</label>
-          <input
-            type="password"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
-        </div>
-        <div>
-          <button type="submit">Register</button>
-        </div>
-      </form>
-      <p>
-        Đã có tài khoản?{" "}
-        <Link to="/login">
-          <b>Đăng nhập ngay!</b>
-        </Link>
-      </p>
+      <div className="container">
+        <h1>Đăng ký</h1>
+        <form className="formRegister" onSubmit={handleRegister}>
+          <div className="inputForm">
+            <label htmlFor="username">Username</label>
+            <InputForm
+              data={username}
+              setData={setUsername}
+              placeholder="Nhập username"
+              type="text"
+            />
+            <label htmlFor="">Email</label>
+            <InputForm
+              data={email}
+              setData={setEmail}
+              placeholder="Nhập email"
+              type="text"
+            />
+            <label htmlFor="password">Password</label>
+            <InputForm
+              data={password}
+              setData={setPassword}
+              placeholder="Nhập password"
+              type="password"
+            />
+          </div>
+            <input type="submit" value="Đăng ký"/>
+        </form>
+        <p>
+          Đã có tài khoản?{" "}
+          <Link className="linkLogin" to="/login">
+            <b>Đăng nhập ngay!</b>
+          </Link>
+        </p>
+      </div>
     </>
   );
 };

@@ -4,6 +4,8 @@ import { loginUser } from "../../redux/apis/authApiRequests";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
+import InputForm from "../../components/InputForm/InputForm";
+import "./Login.css";
 const Login = () => {
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -25,28 +27,34 @@ const Login = () => {
   }, [user]);
   return (
     <>
-      <h1>Login</h1>
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          placeholder="username"
-          value={username}
-          onChange={(e) => setUsername(e.target.value)}
-        />
-        <input
-          type="password"
-          placeholder="password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
-        <input type="submit" value="Login" />
-      </form>
-      <p>
-        Chưa có tài khoản?{" "}
-        <Link to="/register">
-          <b>Đăng kí ngay!</b>
-        </Link>
-      </p>
+      <div className="container">
+        <h1>Đăng Nhập</h1>
+        <form className="formLogin" onSubmit={handleSubmit}>
+          <div className="inputForm">
+          <label htmlFor="username">Username</label>
+            <InputForm
+              data={username}
+              setData={setUsername}
+              placeholder="Nhập username"
+              type="text"
+            />
+            <label htmlFor="password">Password</label>
+            <InputForm
+              data={password}
+              setData={setPassword}
+              placeholder="Nhập password"
+              type="password"
+            />
+          </div>
+          <input type="submit" value="Đăng nhập" />
+        </form>
+        <p>
+          Chưa có tài khoản?{" "}
+          <Link className="linkRegister" to="/register">
+            <b>Đăng kí ngay!</b>
+          </Link>
+        </p>
+      </div>
     </>
   );
 };

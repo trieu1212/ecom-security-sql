@@ -27,7 +27,7 @@ export const authSlice = createSlice({
             state.login.isSuccess = true;
             state.login.currentUser = action.payload;
         },
-        loginError:(state) =>{
+        loginError:(state,action) =>{
             state.login.isFetching = false;
             state.login.isError = true;
             state.login.isSuccess = false;
@@ -42,7 +42,7 @@ export const authSlice = createSlice({
             state.register.isError = false;
             state.register.isSuccess = true;
         },
-        registerError:(state) =>{
+        registerError:(state,action) =>{
             state.register.isFetching = false;
             state.register.isError = true;
             state.register.isSuccess = false;

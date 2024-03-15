@@ -30,20 +30,24 @@ const Header = () => {
     logoutUser(axiosJWT, dispatch, navigate, accessToken, refreshToken);
   };
   const handleMoveToCartPage = () => {
-    navigate(`/cart`)
-  }
+    navigate(`/cart`);
+  };
   if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
   }
   return (
     <>
-      {user ? <p>Xin chào {user?.username}!</p> : ""}
-      {accessToken ? (
-        <button onClick={handleLogout}>Đăng xuất</button>
-      ) : (
-        <Link to="/login">Đăng nhập</Link>
-      )}
-      <h2 style={{ cursor:"pointer" }} onClick={handleMoveToCartPage}>{cart ? `Cart(${cart?.length})` : "Cart(0)"}</h2>
+      <header>
+        {user ? <p>Xin chào {user?.username}!</p> : ""}
+        {accessToken ? (
+          <button onClick={handleLogout}>Đăng xuất</button>
+        ) : (
+          <Link to="/login">Đăng nhập</Link>
+        )}
+        <h2 style={{ cursor: "pointer" }} onClick={handleMoveToCartPage}>
+          {cart ? `Cart(${cart?.length})` : "Cart(0)"}
+        </h2>
+      </header>
     </>
   );
 };

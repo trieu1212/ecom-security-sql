@@ -1,14 +1,17 @@
 import axios from 'axios';
 import { loginError, loginStart, loginSuccess, logout, registerError, registerStart, registerSuccess } from '../authSlice';
 import {clearUserCart} from '../cartSlice'
+import { toast } from 'react-toastify';
 export const loginUser =async (user,dispatch,navigate) => {
     dispatch(loginStart());
     try {
         const res = await axios.post('http://localhost:7000/api/auth/login',user)
         dispatch(loginSuccess(res.data))
+        toast.success('Đăng nhập thành công')
         navigate('/')
     } catch (error) {
-        dispatch(loginError())
+        dispatch(loginError(error.response.data.message))
+        toast.error()
     }
 }
 
@@ -17,9 +20,11 @@ export const registerUser = async (user,dispatch,navigate) =>{
     try {
         const res = await axios.post('http://localhost:7000/api/auth/register',user)
         dispatch(registerSuccess(res.data))
+        toast.success('Đăng ký thành công')
         navigate('/login')
     } catch (error) {
         dispatch(registerError())
+        toast.error('Đăng ký thất bại')
     }
 }
 
@@ -33,6 +38,7 @@ export const logoutUser = async (axiosJWT,dispatch,navigate,accessToken,refreshT
         dispatch(logout(res.data))
         dispatch(clearUserCart())
         navigate('/')
+        toast.success('Đăng xuất thành công')
     } catch (error) {
         console.log(error)
     }

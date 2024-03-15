@@ -1,3 +1,4 @@
+import { toast } from "react-toastify";
 import {
   addUserCartError,
   addUserCartStart,
@@ -47,8 +48,10 @@ export const addUserCart = async (
       }
     );
     dispatch(addUserCartSuccess(res.data));
+    toast.success("Thêm sản phẩm vào giỏ hàng thành công");
   } catch (error) {
     dispatch(addUserCartError());
+    toast.error("Thêm sản phẩm vào giỏ hàng thất bại");
   }
 };
 
@@ -85,7 +88,9 @@ export const deleteUserCart = async (productId,dispatch,axiosJWT,accessToken,use
       }
     })
     dispatch(deleteProductFromCartSuccess(res.data))
+    toast.success("Xóa sản phẩm khỏi giỏ hàng thành công")
   } catch (error) {
     dispatch(deleteProductFromCartError())
+    toast.error("Xóa sản phẩm khỏi giỏ hàng thất bại")
   }
 }

@@ -7,6 +7,7 @@ import Cart from "./pages/Cart/Cart";
 import Register from "./pages/Register/Register";
 import ProductDetail from "./pages/ProductDetail/ProductDetail";
 import Header from "./components/Header/Header";
+import { ToastContainer } from 'react-toastify';
 function App() {
   return (
     <>
@@ -19,6 +20,18 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/register" element={<Register />} />
       </Routes>
+      <ToastContainer
+      position="top-right"
+      autoClose={5000}
+      hideProgressBar={false}
+      newestOnTop={false}
+      closeOnClick
+      rtl={false}
+      pauseOnFocusLoss
+      draggable
+      pauseOnHover
+      theme="colored"
+      />
     </>
   );
 }
