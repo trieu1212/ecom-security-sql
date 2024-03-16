@@ -1,7 +1,9 @@
-import React, { useEffect } from 'react'
-import AllProduct from '../../components/AllProduct'
+import React from 'react'
 import { useSelector } from 'react-redux'
 import Banner from '../../components/Banner/Banner'
+import HomeProduct from '../../components/HomeProduct/HomeProduct'
+import SaleOff from '../../components/SaleOff/SaleOff'
+import HomeComment from '../../components/HomeComment/HomeComment'
 
 const Home = () => {
   const user = useSelector((state) => state.auth.login?.currentUser)
@@ -15,7 +17,9 @@ const Home = () => {
                 ""
               )}
         <Banner />
-        <AllProduct />
+        <HomeProduct />
+        <SaleOff />
+        <HomeComment />
     </>
   )
 }

@@ -1,9 +1,11 @@
 const db = require('../orm/models/index');
 const ProductController = {
   getAllProduct: async(req,res)=>{
+    const limit = req.query.limit
     try {
       const product = await db.Product.findAll(
-        {attributes:['id','title','description','image','price','inStock']},
+        {attributes:['id','title','description','image','price','inStock'],
+        limit: limit ? parseInt(limit) : 10},
       );
       res.status(200).json(product)
     }catch(err){

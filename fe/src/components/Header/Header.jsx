@@ -49,7 +49,7 @@ const Header = () => {
               <Link to="/">Trang chủ</Link>
             </div>
             <div class="item">
-              <Link to="/">Sản phẩm</Link>
+              <Link to="/product">Sản phẩm</Link>
             </div>
             <div class="item">
               <Link to="/contact">Liên hệ</Link>

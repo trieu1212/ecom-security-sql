@@ -1,13 +1,17 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useNavigate } from 'react-router-dom'
 import "./Banner.css"
 import img1 from '../../assets/images/7.jpg'
 import img2 from '../../assets/images/8.jpg'
 import img3 from '../../assets/images/9.jpg'
 import arrow_down from '../../assets/images/to_bottom.png'
 const Banner = () => {
+    const navigate = useNavigate()
     const style = {
         boderRadius: "20px"
+    }
+    const handleToProduct = () => {
+        navigate('/product')
     }
   return (
     <>
@@ -19,7 +23,7 @@ const Banner = () => {
                     <span>ĐỘC ĐÁO</span>
                 </h2>
                 <p>Cung cấp đa dạng các phong cách thời trang, từ thanh lịch, cá tính đến năng động, giúp bạn dễ dàng tìm kiếm trang phục phù hợp với cá tính riêng của mình.</p>
-                <button>Mua ngay</button>
+                <button onClick={handleToProduct}>Mua ngay</button>
             </div>
             <div class="box-right">
                 <img src={img1} alt="" style = {style}/>
