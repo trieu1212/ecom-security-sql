@@ -6,7 +6,7 @@ import { getAllProduct } from "../../redux/apis/productApiRequests";
 import { Link } from "react-router-dom";
 const HomeProduct = () => {
   const dispatch = useDispatch();
-  const limit = 4;
+  const limit = 2;
   useEffect(() => {
     getAllProduct(dispatch, limit);
   }, []);
