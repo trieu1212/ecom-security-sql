@@ -2,7 +2,7 @@
     width: 100%;
     background:rgb(0,0,0,0.79);
     height: 322px;
-    margin-top:338px;
+    margin-top:180px;
     padding:0px 63px;
     padding-top:57px;
     display: flex;
@@ -16,7 +16,6 @@
 
 #footer .box .quick-menu {
     margin-top:40px;
-
 }
 
 

@@ -4,25 +4,34 @@ import { useDispatch, useSelector } from "react-redux";
 import { getAllCategory } from "../../redux/apis/categoryApiRequests";
 import { getAllProduct } from "../../redux/apis/productApiRequests";
 import { Link } from "react-router-dom";
-
+import ReactPaginate from "react-paginate";
 const AllProduct = () => {
   const dispatch = useDispatch();
   const [isProductEmpty, setIsProductEmpty] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [currentLimit, setCurrentLimit] = useState(3);
+  const [totalPages, setTotalPages] = useState(0);
+  const productList = useSelector((state) => state.product?.allProduct);
   useEffect(() => {
-    getAllProduct(dispatch, 6);
+    getAllProduct(dispatch, currentLimit,currentPage);
     getAllCategory(dispatch);
-  }, [dispatch]);
-  const product = useSelector((state) => state.product?.allProduct);
+    setTotalPages(productList?.totalPages);
+  }, [dispatch,currentPage]);
+  const product = productList?.product;
+  console.log(productList);
   const category = useSelector((state) => state.category?.categories);
   const handleGetProductByCategory = async (id) => {
-    await getAllProduct(dispatch, 6, id);
+    await getAllProduct(dispatch, currentLimit,currentPage ,id);
   };
   const handleGetAllProduct = async () => {
-    await getAllProduct(dispatch, 6);
-  }
+    await getAllProduct(dispatch, currentLimit,currentPage);
+  };
   useEffect(() => {
     setIsProductEmpty(!product || product.length === 0);
   }, [product]);
+  const handlePageClick = async(e) => {
+    setCurrentPage(+e.selected+1);
+  };
   return (
     <>
       <div className="allProductContainer">
@@ -32,12 +41,12 @@ const AllProduct = () => {
               Danh mục sản phẩm
             </label>
             <div className="categoryView">
-            <p
-              style={{ cursor: "pointer",fontWeight:"bold" }}
-              onClick={handleGetAllProduct}
-            >
-              Tất cả sản phẩm
-            </p>
+              <p
+                style={{ cursor: "pointer", fontWeight: "bold" }}
+                onClick={handleGetAllProduct}
+              >
+                Tất cả sản phẩm
+              </p>
             </div>
             {category &&
               category.map((item, index) => {
@@ -73,6 +82,29 @@ const AllProduct = () => {
               );
             })}
         </div>
+      </div>
+      <div className="paginate">
+        {totalPages>0 && 
+        <ReactPaginate
+          nextLabel="next >"
+          onPageChange={handlePageClick}
+          pageRangeDisplayed={3}
+          marginPagesDisplayed={2}
+          pageCount={totalPages}
+          previousLabel="< previous"
+          pageClassName="page-item"
+          pageLinkClassName="page-link"
+          previousClassName="page-item"
+          previousLinkClassName="page-link"
+          nextClassName="page-item"
+          nextLinkClassName="page-link"
+          breakLabel="..."
+          breakClassName="page-item"
+          breakLinkClassName="page-link"
+          containerClassName="pagination"
+          activeClassName="active"
+          renderOnZeroPageCount={null}
+        />}
       </div>
     </>
   );

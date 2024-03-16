@@ -10,7 +10,7 @@ const HomeProduct = () => {
   useEffect(() => {
     getAllProduct(dispatch, limit);
   }, []);
-  const products = useSelector((state) => state.product?.allProduct);
+  const products = useSelector((state) => state.product?.allProduct?.product);
   console.log(products);
   return (
     <>

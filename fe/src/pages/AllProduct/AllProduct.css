@@ -65,9 +65,10 @@
 
 .productList .product .name {
     text-align: center;
+    font-size: 19px;
     color:#fff;
     font-weight: bold;
-    margin-top:21px;
+    margin-top:19px;
 }
 
 .productList .product .desc {
@@ -81,4 +82,9 @@
     font-weight: bold;
     margin-top:0.7rem;
     margin-bottom: 0.4rem;
+}
+.paginate{
+    display: flex;
+    justify-content: center;
+    margin-top: 2rem;
 }
