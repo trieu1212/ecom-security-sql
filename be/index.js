@@ -10,6 +10,7 @@ const UserRoute = require('./routes/UserRoute')
 const ProductRoute = require('./routes/ProductRoute')
 const CartRoute = require('./routes/CartRoute')
 const CommentRoute = require('./routes/CommentRoute')
+const CategoryRoute = require('./routes/CategoryRoute')
 const connection = require('./orm/configs/connectDB')
 
 //config server
@@ -20,7 +21,7 @@ app.use(bodyParser.json())
 app.use(cors())
 app.use(morgan("common"))
 app.use(cookieParser())
-// app.use(helmet())
+app.use(helmet())
 
 connection()
 app.listen(PORT, (req,res)=>{
@@ -33,3 +34,4 @@ app.use('/api/user',UserRoute)
 app.use('/api/product',ProductRoute)
 app.use('/api/cart',CartRoute)
 app.use('/api/comment',CommentRoute)
+app.use('/api/category',CategoryRoute)
