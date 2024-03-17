@@ -8,7 +8,6 @@ import { logout } from "../../redux/authSlice";
 import "./Header.css";
 import { getUserCart } from "../../redux/apis/cartApiRequests";
 import logo from "../../assets/images/logo.png";
-import cartImg from "../../assets/images/cart.png";
 const Header = () => {
   const location = useLocation();
   const accessToken = useSelector(

@@ -12,7 +12,8 @@ const Cart = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart?.currentCart);
-  console.log(cart);
+  const isFetchingCart = useSelector((state) => state.cart?.isFetching);
+  // console.log(cart);
   const user = useSelector((state) => state.auth.login?.currentUser);
   let axiosJWT = createAxios(user, dispatch, loginSuccess, user?.refreshToken);
   useEffect(() => {
@@ -20,7 +21,7 @@ const Cart = () => {
       cartList(cart);
       setCartChanged(false);
     }
-  },[cartChanged, cart]);
+  }, [cartChanged, cart]);
   useEffect(() => {
     if (cart) {
       cartList(cart);
@@ -49,11 +50,11 @@ const Cart = () => {
     setTotalPrice(total);
   };
   const handleNavigateToCheckout = () => {
-    navigate("/checkout");
+    navigate("/checkout", {state:{totalPrice:totalPrice}});
   };
   const handleNavigateToProducts = () => {
     navigate("/product");
-  }
+  };
   const handleDeleteProduct = async (productId) => {
     await deleteUserCart(
       productId,
@@ -65,29 +66,55 @@ const Cart = () => {
     await getUserCart(dispatch, axiosJWT, user?.accessToken, user?.id);
     setCartChanged(true);
   };
-  const handleIncrease = async(index) => {
+  const handleIncrease = async (index) => {
     const newCartItems = [...cartItems];
-    newCartItems[index].quantity += 1;
-    setCartItems(newCartItems);
-    const data = {
-      productId: newCartItems[index].productId,
-      quantity: newCartItems[index].quantity,
-    };
-    await updateProductQuantity(data,dispatch,axiosJWT,user?.accessToken,user?.id)
-    await getUserCart(dispatch, axiosJWT, user?.accessToken, user?.id);
-    setCartChanged(true);
+    if (newCartItems[index].quantity < 10) {
+      newCartItems[index].quantity += 1;
+      setCartItems(newCartItems);
+      const data = {
+        productId: newCartItems[index].productId,
+        quantity: newCartItems[index].quantity,
+      };
+      await updateProductQuantity(
+        data,
+        dispatch,
+        axiosJWT,
+        user?.accessToken,
+        user?.id
+      );
+      await getUserCart(dispatch, axiosJWT, user?.accessToken, user?.id);
+      setCartChanged(true);
+    } else {
+      return;
     }
-  const handleDecrease = async(index) => {
+  };
+  const handleDecrease = async (index) => {
     const newCartItems = [...cartItems];
-    newCartItems[index].quantity -= 1;
-    setCartItems(newCartItems);
-    const data = {
-      productId: newCartItems[index].productId,
-      quantity: newCartItems[index].quantity,
-    };
-    await updateProductQuantity(data,dispatch,axiosJWT,user?.accessToken,user?.id)
-    await getUserCart(dispatch, axiosJWT, user?.accessToken, user?.id);
-    setCartChanged(true);
+    if (newCartItems[index].quantity > 1) {
+      newCartItems[index].quantity -= 1;
+      setCartItems(newCartItems);
+      const data = {
+        productId: newCartItems[index].productId,
+        quantity: newCartItems[index].quantity,
+      };
+      await updateProductQuantity(
+        data,
+        dispatch,
+        axiosJWT,
+        user?.accessToken,
+        user?.id
+      );
+      await getUserCart(dispatch, axiosJWT, user?.accessToken, user?.id);
+      setCartChanged(true);
+    } else {
+      return;
+    }
+  };
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
   };
   return (
     <>
@@ -96,10 +123,10 @@ const Cart = () => {
       ) : (
         <div>
           {cartItems.length === 0 ? (
-            <h2 style={{ textAlign:"center" }}>Giỏ hàng trống</h2>
+            <h2 style={{ textAlign: "center" }}>Giỏ hàng trống</h2>
           ) : (
             <div>
-              {cartItems.map((item,index) => {
+              {cartItems.map((item, index) => {
                 return (
                   <>
                     <div key={item.id}>
@@ -110,27 +137,35 @@ const Cart = () => {
                         height={80}
                         width={60}
                       />
-                      <p>Giá: {item.Product.price}</p>
+                      <p>Giá: {formatPrice(item.Product.price)}</p>
                       <div class="counter">
-                  <button class="btn minus" onClick={()=>handleDecrease(index)}>
-                    -
-                  </button>
-                  <input
-                    type="text"
-                    className="quantity"
-                    readonly
-                    style={{ width: "5%" }}
-                    min={1}
-                    max={10}
-                    role="spinbutton"
-                    aria-live="assertive"
-                    aria-valuenow="1"
-                    value={item.quantity}
-                  />
-                  <button class="btn plus" onClick={()=>handleIncrease(index)}>
-                    +
-                  </button>
-                </div>
+                        <button
+                          class="btn minus"
+                          onClick={() => handleDecrease(index)}
+                          disabled={isFetchingCart?true:false}
+                        >
+                          -
+                        </button>
+                        <input
+                          type="text"
+                          className="quantity"
+                          readonly
+                          style={{ width: "5%" }}
+                          min={1}
+                          max={10}
+                          role="spinbutton"
+                          aria-live="assertive"
+                          aria-valuenow="1"
+                          value={item.quantity}
+                        />
+                        <button
+                          class="btn plus"
+                          onClick={() => handleIncrease(index)}
+                          disabled={isFetchingCart?true:false}
+                        >
+                          +
+                        </button>
+                      </div>
                     </div>
                     <button onClick={() => handleDeleteProduct(item.productId)}>
                       Xóa khỏi giỏ
@@ -141,13 +176,17 @@ const Cart = () => {
             </div>
           )}
           <div>
-            { cart.length>0 ? (
+            {cart.length > 0 ? (
               <>
-                <h2>Tổng giá: {totalPrice} VND </h2>
+                <h2>Tổng giá: {formatPrice(totalPrice)} </h2>
                 <button onClick={handleNavigateToCheckout}>Thanh toán</button>
               </>
             ) : (
-              <Link to="/product"><p style={{ textAlign:"center" }}>Xem thêm sản phẩm khác <b>Xem Ngay!</b></p></Link>
+              <Link to="/product">
+                <p style={{ textAlign: "center" }}>
+                  Xem thêm sản phẩm khác <b>Xem Ngay!</b>
+                </p>
+              </Link>
             )}
           </div>
         </div>
