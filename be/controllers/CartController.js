@@ -36,15 +36,16 @@ const CartController = {
     const {userId} = req.params
     const {productId,quantity} = req.body
     try {
-      const updateCart = await db.Cart.update(
-        {
-          where:{userId:userId,productId:productId},
-        },
-        {
-          quantity:quantity
-        }
+         await db.Cart.update(
+          { quantity: quantity }, 
+          { 
+              where: { 
+                  userId: userId, 
+                  productId: productId 
+              } 
+          }
       )
-      res.status(200).json(updateCart)
+      res.status(200).json({message:"update cart success"})
     } catch (error) {
       res.status(500).json({message:error.message})
     }

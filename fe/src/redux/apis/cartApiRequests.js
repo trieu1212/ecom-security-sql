@@ -9,6 +9,9 @@ import {
   getUserCartError,
   getUserCartStart,
   getUserCartSuccess,
+  updateProductQuantityError,
+  updateProductQuantityStart,
+  updateProductQuantitySuccess,
   updateUserCartError,
   updateUserCartStart,
   updateUserCartSuccess,
@@ -92,5 +95,21 @@ export const deleteUserCart = async (productId,dispatch,axiosJWT,accessToken,use
   } catch (error) {
     dispatch(deleteProductFromCartError())
     toast.error("Xóa sản phẩm khỏi giỏ hàng thất bại")
+  }
+}
+
+export const updateProductQuantity=async (data,dispatch,axiosJWT,accessToken,userId)=>{
+  dispatch(updateProductQuantityStart())
+  try {
+    const res = await axiosJWT.put(`http://localhost:7000/api/cart/update/${userId}`,data,{
+      headers:{
+        Authorization:`Bearer ${accessToken}`
+      }
+    })
+    dispatch(updateProductQuantitySuccess(res.data))
+    toast.success("Cập nhật số lượng sản phẩm thành công")
+  } catch (error) {
+    dispatch(updateProductQuantityError())
+    toast.error("Cập nhật số lượng sản phẩm thất bại")
   }
 }

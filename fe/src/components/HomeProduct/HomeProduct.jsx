@@ -11,7 +11,6 @@ const HomeProduct = () => {
     getHomeProduct(dispatch, limit);
   }, []);
   const products = useSelector((state) => state.product?.homeProduct);
-  console.log(products);
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",

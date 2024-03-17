@@ -11,7 +11,7 @@ const Home = () => {
     <>
         {user ? (
                 <div style={{ textAlign:"center" }}>
-                  Xin chào <b style={{ fontSize: "20px" }}>{user?.username}!</b>
+                  Xin chào <b style={{ fontSize: "20px" }}>{user?.username}! <i class="fa-sharp fa-solid fa-hand-holding-heart fa-xl"></i></b>
                 </div>
               ) : (
                 ""

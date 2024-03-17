@@ -18,7 +18,7 @@ const AllProduct = () => {
     setTotalPages(productList?.totalPages);
   }, [dispatch,currentPage]);
   const product = productList?.product;
-  console.log(productList);
+  // console.log(productList);
   const category = useSelector((state) => state.category?.categories);
   const handleGetProductByCategory = async (id) => {
     await getAllProduct(dispatch, currentLimit,currentPage ,id);

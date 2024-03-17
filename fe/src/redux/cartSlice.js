@@ -71,6 +71,26 @@ const cartSlice = createSlice({
       state.isFetching = false;
       state.isSuccess = false;
     },
+    updateProductQuantityStart: (state) => {
+      state.isFetching = true;
+    },
+    updateProductQuantitySuccess: (state, action) => {
+      const { productId, quantity } = action.payload;
+      const updatedCart = state.currentCart.map(item => {
+        if (item.productId === productId) {
+          return { ...item, quantity }; 
+        }
+        return item;
+      });
+      state.currentCart = updatedCart;
+      state.isFetching = false;
+      state.isSuccess = true;
+    },
+    updateProductQuantityError: (state) => {
+      state.isFetching = false;
+      state.isError = true;
+      state.isSuccess = false;
+    },
   },
 });
 
@@ -87,6 +107,9 @@ export const {
   updateUserCartError,
   deleteProductFromCartStart,
   deleteProductFromCartSuccess,
-  deleteProductFromCartError} = cartSlice.actions;
+  deleteProductFromCartError,
+  updateProductQuantityStart,
+  updateProductQuantitySuccess,
+  updateProductQuantityError} = cartSlice.actions;
 
 export default cartSlice.reducer;
