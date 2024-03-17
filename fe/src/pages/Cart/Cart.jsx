@@ -9,6 +9,7 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState([]);
   const [totalPrice, setTotalPrice] = useState(0);
   const [cartChanged, setCartChanged] = useState(false);
+  const [quantity,setQuantity] = useState(1)
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const cart = useSelector((state) => state.cart?.currentCart);
@@ -61,6 +62,18 @@ const Cart = () => {
     await getUserCart(dispatch, axiosJWT, user?.accessToken, user.id);
     setCartChanged(true);
   };
+  const handleIncrease = (e) => {
+    e.preventDefault();
+    if (quantity < 10) {
+      setQuantity(quantity + 1);
+    }
+  };
+  const handleDecrease = (e) => {
+    e.preventDefault();
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
   return (
     <>
       <h1>Trang giỏ hàng</h1>
@@ -84,15 +97,26 @@ const Cart = () => {
                         width={60}
                       />
                       <p>Giá: {item.Product.price}</p>
-                      <label>
-                        Số lượng:
-                        <input
-                          type="number"
-                          min={1}
-                          max={100}
-                          value={item.quantity}
-                        />
-                      </label>
+                      <div class="counter">
+                  <button class="btn minus" onClick={handleDecrease}>
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    className="quantity"
+                    readonly
+                    style={{ width: "5%" }}
+                    min={1}
+                    max={10}
+                    role="spinbutton"
+                    aria-live="assertive"
+                    aria-valuenow="1"
+                    value={item.quantity}
+                  />
+                  <button class="btn plus" onClick={handleIncrease}>
+                    +
+                  </button>
+                </div>
                     </div>
                     <button onClick={() => handleDeleteProduct(item.productId)}>
                       Xóa khỏi giỏ

@@ -2,15 +2,16 @@ import React, { useEffect } from "react";
 import star from "../../assets/images/star.png";
 import "./HomeProduct.css";
 import { useDispatch, useSelector } from "react-redux";
-import { getAllProduct } from "../../redux/apis/productApiRequests";
+import { getHomeProduct } from "../../redux/apis/productApiRequests";
 import { Link } from "react-router-dom";
 const HomeProduct = () => {
   const dispatch = useDispatch();
   const limit = 2;
   useEffect(() => {
-    getAllProduct(dispatch, limit);
+    getHomeProduct(dispatch, limit);
   }, []);
-  const products = useSelector((state) => state.product?.allProduct?.product);
+  const products = useSelector((state) => state.product?.homeProduct);
+  console.log(products);
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",

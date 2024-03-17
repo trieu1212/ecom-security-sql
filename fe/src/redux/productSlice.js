@@ -4,6 +4,7 @@ const productSlice = createSlice({
     name:'product',
     initialState:{
         allProduct:null,
+        homeProduct:null,
         oneProduct:null,
         isFetching:false,
         isError:false,
@@ -41,6 +42,22 @@ const productSlice = createSlice({
             state.isFetching = false;
             state.isError = true;
             state.isSuccess = false;
+        },
+        getHomeProductStart:(state)=>{
+            state.isFetching = true;
+            state.isError = false;
+            state.isSuccess = false;
+        },
+        getHomeProductSuccess:(state,action)=>{
+            state.isFetching = false;
+            state.isError = false;
+            state.isSuccess = true;
+            state.homeProduct = action.payload;
+        },
+        getHomeProductError:(state)=>{
+            state.isFetching = false;
+            state.isError = true;
+            state.isSuccess = false;
         }
     }
 })
@@ -49,5 +66,8 @@ export const {getAllProductStart,
             getAllProductError,
             getOneProductStart,
             getOneProductSuccess,
-            getOneProductError,} = productSlice.actions
+            getOneProductError,
+            getHomeProductStart,
+            getHomeProductSuccess,
+            getHomeProductError} = productSlice.actions
 export default productSlice.reducer;

@@ -1,5 +1,5 @@
 import axios from 'axios';
-import { getAllProductError, getAllProductStart, getAllProductSuccess, getOneProductError, getOneProductStart, getOneProductSuccess } from '../productSlice';
+import { getAllProductError, getAllProductStart, getAllProductSuccess, getHomeProductError, getHomeProductStart, getHomeProductSuccess, getOneProductError, getOneProductStart, getOneProductSuccess } from '../productSlice';
 
 export const getAllProduct = async(dispatch,limit,page,categoryId) =>{
     dispatch(getAllProductStart());
@@ -24,5 +24,15 @@ export const getOneProduct = async(dispatch,id) =>{
         dispatch(getOneProductSuccess(res.data))
     } catch (error) {
         dispatch(getOneProductError())
+    }
+}
+
+export const getHomeProduct = async(dispatch,limit) =>{
+    dispatch(getHomeProductStart())
+    try {
+        const res = await axios.get(`http://localhost:7000/api/product/?limit=${limit}`)
+        dispatch(getHomeProductSuccess(res.data))
+    } catch (error) {
+        dispatch(getHomeProductError())
     }
 }
