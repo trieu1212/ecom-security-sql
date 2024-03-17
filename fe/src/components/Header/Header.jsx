@@ -71,8 +71,8 @@ const Header = () => {
                 </Link>
               )}
             </div>
-            <div class="item itemCart">
-              <img src={cartImg} alt="" onClick={handleMoveToCartPage} />{" "}
+            <div style={{ fontSize:"20px" }} class="item itemCart">
+            <i class="fa-solid fa-cart-shopping fa-lg" onClick={handleMoveToCartPage}></i>{" "}
               {cart ? `(${cart?.length})` : "(0)"}
             </div>
           </div>

@@ -14,10 +14,12 @@ import {
   getUserCart,
   updateUserCart,
 } from "../../redux/apis/cartApiRequests";
-
+import "./ProductDetail.css";
+import { toast } from "react-toastify";
 const ProductDetail = () => {
   const [comment, setComment] = useState("");
   const { id } = useParams();
+  const [quantity, setQuantity] = useState(1);
   const user = useSelector((state) => state.auth.login?.currentUser);
   const refreshToken = useSelector(
     (state) => state.auth.login?.currentUser?.refreshToken
@@ -62,20 +64,20 @@ const ProductDetail = () => {
   const handleAddCart = async (e) => {
     e.preventDefault();
     if (!user) {
-      alert("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng");
+      toast.error("Vui lòng đăng nhập để thêm sản phẩm vào giỏ hàng");
     } else {
       const existProduct = cart.find((item) => item.productId === id);
       if (existProduct) {
         const data = {
           productId: id,
-          quantity: existProduct.quantity + 1,
+          quantity: existProduct.quantity + quantity,
         };
         await updateUserCart(data, dispatch, accessToken, axiosJWT, user.id);
         await getUserCart(dispatch, axiosJWT, accessToken, user.id);
       } else {
         const data = {
           productId: id,
-          quantity: 1,
+          quantity: quantity,
         };
         try {
           await addUserCart(data, dispatch, axiosJWT, accessToken, user.id);
@@ -86,65 +88,140 @@ const ProductDetail = () => {
       }
     }
   };
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
+  };
+  const handleIncrease = (e) => {
+    e.preventDefault();
+    if (quantity < 10) {
+      setQuantity(quantity + 1);
+    }
+  };
+  const handleDecrease = (e) => {
+    e.preventDefault();
+    if (quantity > 1) {
+      setQuantity(quantity - 1);
+    }
+  };
   return (
     <>
-      <div>
-        {product ? (
-          <div>
-            <h1>{product.title}</h1>
-            <p>Mô tả sản phẩm: {product.description}</p>
-            <p>Danh mục sản phẩm: {product.Category.name}</p>
-            <img src={product.image} alt="" height="320px" width="240px" />
-            <p>Giá sản phẩm: {product.price} VNĐ</p>
-            <button onClick={handleAddCart}>Thêm vào giỏ</button>
-          </div>
-        ) : (
-          <p>Không tìm thấy sản phẩm</p>
-        )}
-      </div>
-      <hr />
-      <div>
-        <h2>Đánh giá sản phẩm</h2>
-        {user ? (
-          <div>
-            <textarea
-              placeholder="Nhập nhận xét"
-              cols="30"
-              rows="10"
-              value={comment}
-              onChange={(e) => setComment(e.target.value)}
-            ></textarea>
-            <button onClick={handleAddComment}>Thêm đánh giá</button>
-          </div>
-        ) : (
-          <h2>Hãy đăng nhập để bình luận!</h2>
-        )}
-        {comments ? (
-          <div>
-            {comments.map((comment) => (
-              <div key={comment.id}>
-                <p>
-                  Người dùng <b>{comment.User?.username}</b> đã đánh giá:{" "}
-                  {comment.comment}
-                  {user && user.id === comment.userId ? (
-                    <button onClick={() => handleDeleteComment(comment.id)}>
-                      Xóa
-                    </button>
-                  ) : (
-                    ""
-                  )}
-                  {commentFetching && user && user.id === comment.userId ? (
-                    <p>Đang xóa...</p>
-                  ) : (
-                    ""
-                  )}
-                </p>
+      <div className="mainLayout">
+        <div id="box">
+          {product && (
+            <>
+              <div className="box-left">
+                <img className="productImage" src={product.image} alt="" />
               </div>
-            ))}
+              <div className="box-right">
+                <h1>{product.title}</h1>
+                <p>
+                  <i>Danh mục sản phẩm: </i>
+                  {product.Category.name}
+                </p>
+                <p>
+                  <i>Mã sản phẩm: </i>
+                  {product.id}
+                </p>
+                <h1 className="price">
+                  <i className="priceTitle">Giá tiền: </i>
+                  {formatPrice(product.price)}
+                </h1>
+                <hr />
+                <p>
+                  <i>Mô tả</i>: {product.description}
+                </p>
+                <div class="counter">
+                  <button class="btn minus" onClick={handleDecrease}>
+                    -
+                  </button>
+                  <input
+                    type="text"
+                    className="quantity"
+                    readonly
+                    style={{ width: "5%" }}
+                    min={1}
+                    max={10}
+                    role="spinbutton"
+                    aria-live="assertive"
+                    aria-valuenow="1"
+                    value={quantity}
+                  />
+                  <button class="btn plus" onClick={handleIncrease}>
+                    +
+                  </button>
+                </div>
+                <button class="add-to-cart" onClick={handleAddCart}>
+                  <i
+                    style={{ marginRight: "0.5rem" }}
+                    class="fa-solid fa-cart-shopping"
+                  ></i>{" "}
+                  Thêm vào giỏ
+                </button>
+              </div>
+            </>
+          )}
+        </div>
+        <hr />
+        <div className="comment">
+          <h2 style={{ textAlign: "center", marginBottom:"1rem" }}>Đánh giá sản phẩm</h2>
+          <div className="addComment">
+            {user ? (
+              <>
+                <div className="userIcon">
+                  <i class="fa-solid fa-user fa-2xl"></i>
+                  <h3>{user?.username}</h3>
+                </div>
+                <div className="userComment">
+                  <textarea
+                    placeholder="Nhập nhận xét"
+                    cols="90"
+                    rows="3"
+                    value={comment}
+                    onChange={(e) => setComment(e.target.value)}
+                  ></textarea>
+                  <button className="buttonComment" onClick={handleAddComment}>
+                    Thêm đánh giá
+                  </button>
+                </div>
+              </>
+            ) : (
+              <h2>Hãy đăng nhập để bình luận!</h2>
+            )}
           </div>
-        ) : (
-          <p>Chưa có đánh giá nào cho sản phẩm này</p>
-        )}
+          <div className="viewComment">
+          {comments ? (
+            <div className="viewCommentField" >
+              {comments.map((comment) => (
+                <div className="viewOneComment" key={comment.id}>
+                  <p className="viewCommentInput">
+                  <div>
+                  <i class="fa-solid fa-user fa-xl"></i> <b>{comment.User?.username}</b> đã bình luận về sản phẩm:{" "}
+                    {comment.comment}
+                  </div>
+                    {user && user.id === comment.userId ? (
+                      <button onClick={() => handleDeleteComment(comment.id)}>
+                        Xóa
+                      </button>
+                    ) : (
+                      ""
+                    )}
+                    {commentFetching && user && user.id === comment.userId ? (
+                      <p>Đang xóa...</p>
+                    ) : (
+                      ""
+                    )}
+                  </p>
+                </div>
+              ))}
+            </div>
+          ) : (
+            <p>Chưa có đánh giá nào cho sản phẩm này</p>
+          )}
+          </div>
+        </div>
       </div>
     </>
   );

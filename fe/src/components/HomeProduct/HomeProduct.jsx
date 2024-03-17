@@ -11,7 +11,12 @@ const HomeProduct = () => {
     getAllProduct(dispatch, limit);
   }, []);
   const products = useSelector((state) => state.product?.allProduct?.product);
-  console.log(products);
+  const formatPrice = (price) => {
+    return new Intl.NumberFormat("vi-VN", {
+      style: "currency",
+      currency: "VND",
+    }).format(price);
+  };
   return (
     <>
       <div id="wp-products">
@@ -43,7 +48,7 @@ const HomeProduct = () => {
                             </div>
                             <div class="name">{product.title}</div>
                             <div class="desc">{product.description}</div>
-                            <div class="price">{product.price} VNĐ</div>
+                            <div class="priceProduct">{formatPrice(product.price)}</div>
                         </div>
                         </>
                     ):""}

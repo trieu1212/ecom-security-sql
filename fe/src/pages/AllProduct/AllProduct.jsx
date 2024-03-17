@@ -9,7 +9,7 @@ const AllProduct = () => {
   const dispatch = useDispatch();
   const [isProductEmpty, setIsProductEmpty] = useState(false);
   const [currentPage, setCurrentPage] = useState(1);
-  const [currentLimit, setCurrentLimit] = useState(3);
+  const [currentLimit, setCurrentLimit] = useState(6);
   const [totalPages, setTotalPages] = useState(0);
   const productList = useSelector((state) => state.product?.allProduct);
   useEffect(() => {
@@ -32,6 +32,9 @@ const AllProduct = () => {
   const handlePageClick = async(e) => {
     setCurrentPage(+e.selected+1);
   };
+  const formatPrice = (price) =>{
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
+  }
   return (
     <>
       <div className="allProductContainer">
@@ -76,7 +79,7 @@ const AllProduct = () => {
                     </Link>
                     <h3 className="name">{item.title}</h3>
                     <p className="desc">{item.description}</p>
-                    <p className="price">{item.price} VNĐ</p>
+                    <p className="priceItem">{formatPrice(item.price)}</p>
                   </div>
                 </>
               );
