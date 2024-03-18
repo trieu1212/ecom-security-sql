@@ -10,7 +10,6 @@ export const createOrder = async(data,dispatch,navigate,axiosJWT,accessToken,use
             }
         })
         dispatch(createOrderSuccess(res.data))
-        dispatch(clearUserCart())
         navigate('/')
         toast.success('Đặt hàng thành công')
     } catch (error) {

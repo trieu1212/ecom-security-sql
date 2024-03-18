@@ -6,6 +6,7 @@ import InputForm from "../../components/InputForm/InputForm";
 import { createAxios } from "../../services/axiosJWT";
 import { loginSuccess } from "../../redux/authSlice";
 import { createOrder } from "../../redux/apis/orderApiRequests";
+import { getUserCart } from "../../redux/apis/cartApiRequests";
 const Checkout = () => {
   const location = useLocation();
   const dispatch = useDispatch();
@@ -36,6 +37,7 @@ const Checkout = () => {
       products:cart
     }
     await createOrder(data,dispatch,navigate,axiosJWT,user?.accessToken,user?.id)
+    await getUserCart(dispatch,axiosJWT,user?.accessToken,user?.id)
   }
   const handlePaymentCard = async() =>{
     toast.warning('Chức năng thanh toán thẻ tín dụng đang được phát triển')
