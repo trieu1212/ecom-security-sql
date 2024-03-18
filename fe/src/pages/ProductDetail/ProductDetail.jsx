@@ -33,6 +33,7 @@ const ProductDetail = () => {
   const product = useSelector((state) => state.product?.oneProduct);
   const comments = useSelector((state) => state.comment.comments);
   const commentFetching = useSelector((state) => state.comment.isFetching);
+  //hàm thêm comment
   const handleAddComment = async (e) => {
     e.preventDefault();
     if (!comment) {
@@ -47,6 +48,7 @@ const ProductDetail = () => {
     }
     setComment("");
   };
+  //hàm xóa comment
   const handleDeleteComment = async (commentId) => {
     await deleteCommentByUser(
       commentId,
@@ -57,10 +59,12 @@ const ProductDetail = () => {
     );
     await getProductComments(dispatch, id);
   };
+  //load sản phẩm và comment khi render lần đầu
   useEffect(() => {
     getOneProduct(dispatch, id);
     getProductComments(dispatch, id);
   }, [dispatch, id]);
+  //hàm thêm sản phẩm vào giỏ hàng
   const handleAddCart = async (e) => {
     e.preventDefault();
     if (!user) {
@@ -88,18 +92,21 @@ const ProductDetail = () => {
       }
     }
   };
+  //hàm format giá tiền
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
       currency: "VND",
     }).format(price);
   };
+  //hàm tăng số lượng sản phẩm
   const handleIncrease = (e) => {
     e.preventDefault();
     if (quantity < 10) {
       setQuantity(quantity + 1);
     }
   };
+  //hàm giảm số lượng sản phẩm
   const handleDecrease = (e) => {
     e.preventDefault();
     if (quantity > 1) {
@@ -141,7 +148,7 @@ const ProductDetail = () => {
                     type="text"
                     className="quantity"
                     readonly
-                    style={{ width: "5%" }}
+                    style={{ width: "20%" }}
                     min={1}
                     max={10}
                     role="spinbutton"

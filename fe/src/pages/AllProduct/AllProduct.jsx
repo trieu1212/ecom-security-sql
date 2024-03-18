@@ -12,6 +12,7 @@ const AllProduct = () => {
   const [currentLimit, setCurrentLimit] = useState(6);
   const [totalPages, setTotalPages] = useState(0);
   const productList = useSelector((state) => state.product?.allProduct);
+  //load sản phẩm, danh mục sản phẩm và tổng trang khi render lần đầu
   useEffect(() => {
     getAllProduct(dispatch, currentLimit,currentPage);
     getAllCategory(dispatch);
@@ -20,9 +21,11 @@ const AllProduct = () => {
   const product = productList?.product;
   // console.log(productList);
   const category = useSelector((state) => state.category?.categories);
+  //lấy danh sách sản phẩm theo danh mục
   const handleGetProductByCategory = async (id) => {
     await getAllProduct(dispatch, currentLimit,currentPage ,id);
   };
+  //lấy danh sách tất cả sản phẩm
   const handleGetAllProduct = async () => {
     await getAllProduct(dispatch, currentLimit,currentPage);
   };

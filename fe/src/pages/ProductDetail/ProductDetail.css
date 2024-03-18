@@ -48,7 +48,12 @@
     border: 1px solid #ccc;
     cursor: pointer;
   }
-  
+  .counter input {
+    width: 100%;
+    text-align: center;
+    font-size: 16px;
+    border: 1px solid #ccc;
+  }
   .counter button:hover {
     background-color: #ddd;
   }
