@@ -128,7 +128,7 @@ const Cart = () => {
   return (
     <>
       {!user ? (
-        <Link to="/login">Hãy đăng nhập để xem giỏ hàng</Link>
+        <h2 style={{ textAlign:"center",marginTop:"2rem", }}>Hãy<Link to="/login" style={{ textDecoration:"none" }}> đăng nhập </Link> để xem giỏ hàng</h2>
       ) : (
         <div className="main">
           {cartItems.length === 0 ? (
@@ -192,18 +192,19 @@ const Cart = () => {
               })}
             </div>
           )}
+          <hr />
           <div className="totalPrice">
             {cart.length > 0 ? (
               <>
-                <h2>Tổng giá: {formatPrice(totalPrice)} </h2>
-                <button onClick={handleNavigateToCheckout}>Thanh toán</button>
+                <div>
+                  <h2>Tổng giá: {formatPrice(totalPrice)} </h2>
+                  <button className="payment" onClick={handleNavigateToCheckout}><i class="fa-solid fa-money-check"> </i> Checkout!</button>
+                </div>
               </>
             ) : (
-              <Link to="/product">
                 <p style={{ textAlign: "center" }}>
-                  Xem thêm sản phẩm khác <b>Xem Ngay!</b>
+                  Xem thêm sản phẩm khác <Link style={{ textDecoration:"none" }} to="/product"><b>Xem Ngay!</b></Link>
                 </p>
-              </Link>
             )}
           </div>
         </div>

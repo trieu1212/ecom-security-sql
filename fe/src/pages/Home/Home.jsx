@@ -4,7 +4,7 @@ import Banner from '../../components/Banner/Banner'
 import HomeProduct from '../../components/HomeProduct/HomeProduct'
 import SaleOff from '../../components/SaleOff/SaleOff'
 import HomeComment from '../../components/HomeComment/HomeComment'
-
+import './Home.css'
 const Home = () => {
   const user = useSelector((state) => state.auth.login?.currentUser)
   return (
@@ -16,10 +16,12 @@ const Home = () => {
               ) : (
                 ""
               )}
-        <Banner />
-        <HomeProduct />
-        <SaleOff />
-        <HomeComment />
+        <div className='homeContainer'>
+          <Banner />
+          <HomeProduct />
+          <SaleOff />
+          <HomeComment />
+        </div>
     </>
   )
 }

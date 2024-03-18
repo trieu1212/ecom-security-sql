@@ -1,6 +1,7 @@
 .allProductContainer{
     display: flex;
     margin-top: 2rem;
+    background-color: #f4f4f4;
 }
 .sideBar{
     width: 25%;
