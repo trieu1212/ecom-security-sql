@@ -14,26 +14,34 @@ const AllProduct = () => {
   const productList = useSelector((state) => state.product?.allProduct);
   //load sản phẩm, danh mục sản phẩm và tổng trang khi render lần đầu
   useEffect(() => {
-    getAllProduct(dispatch, currentLimit,currentPage);
+    getAllProduct(dispatch, currentLimit, currentPage).then(() => {
+      setTotalPages(productList?.totalPages);
+    });
     getAllCategory(dispatch);
-    setTotalPages(productList?.totalPages);
   }, [dispatch,currentPage]);
   const product = productList?.product;
   // console.log(productList);
   const category = useSelector((state) => state.category?.categories);
   //lấy danh sách sản phẩm theo danh mục
   const handleGetProductByCategory = async (id) => {
-    await getAllProduct(dispatch, currentLimit,currentPage ,id);
+    setCurrentPage(1);
+  await getAllProduct(dispatch, currentLimit, 1, id).then(() => {
+    setTotalPages(productList?.totalPages);
+  });
   };
   //lấy danh sách tất cả sản phẩm
   const handleGetAllProduct = async () => {
-    await getAllProduct(dispatch, currentLimit,currentPage);
+    setCurrentPage(1);
+  await getAllProduct(dispatch, currentLimit, 1).then(() => {
+    setTotalPages(productList?.totalPages);
+  });
   };
   useEffect(() => {
     setIsProductEmpty(!product || product.length === 0);
   }, [product]);
   const handlePageClick = async(e) => {
     setCurrentPage(+e.selected+1);
+    setTotalPages(productList?.totalPages);
   };
   const formatPrice = (price) =>{
     return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
