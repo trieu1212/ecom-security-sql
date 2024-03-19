@@ -9,13 +9,6 @@ const Home = () => {
   const user = useSelector((state) => state.auth.login?.currentUser)
   return (
     <>
-        {user ? (
-                <div style={{ textAlign:"center" }}>
-                  Xin chào <b style={{ fontSize: "20px" }}>{user?.username}! <i class="fa-sharp fa-solid fa-hand-holding-heart fa-xl"></i></b>
-                </div>
-              ) : (
-                ""
-              )}
         <div className='homeContainer'>
           <Banner />
           <HomeProduct />

@@ -7,11 +7,13 @@
     border: 1px solid #f4f4f4;
     background-color: aliceblue;
     border-radius: 2rem;
-    flex:30%
+    flex:30%;
+    height: 40%;
 }
 .infoUser{
     padding: 3rem;
     margin: 2rem 0;
+    height: 40%;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -30,7 +32,23 @@
     margin: 1rem 1rem;
     display: flex;
     justify-content: space-between;
+    /* align-items: center; */
     padding: 1rem;
     background-color: white;
     border-radius: 0.7rem;
+}
+.orderItems{
+    display: flex;
+    flex-direction: column;
+    gap: 2rem;
+    margin-bottom: 1rem;
+}
+.orderItems img{
+    width: 5rem;
+    height: 5rem;
+    border-radius: 0.7rem;
+}
+.orderItems-1{
+    display: flex;
+    gap:2rem;
 }
