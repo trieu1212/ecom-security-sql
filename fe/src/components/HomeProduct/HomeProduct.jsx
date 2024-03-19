@@ -6,7 +6,7 @@ import { getHomeProduct } from "../../redux/apis/productApiRequests";
 import { Link } from "react-router-dom";
 const HomeProduct = () => {
   const dispatch = useDispatch();
-  const limit = 2;
+  const limit = 3;
   useEffect(() => {
     getHomeProduct(dispatch, limit);
   }, []);

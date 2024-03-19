@@ -10,11 +10,12 @@
 #menu {
     list-style:none;
     display: flex;
+    justify-content: center;
 }
 
 #menu .item {
     margin:0px 25px;
-    margin-left: 1rem;
+    /* margin-left: 1rem; */
 }
 
 #menu .item a {
@@ -27,9 +28,6 @@
     display: flex;
 }
 
-#actions .item {
-    margin-left:22px;
-}
 
 .itemUser {
     display: flex;

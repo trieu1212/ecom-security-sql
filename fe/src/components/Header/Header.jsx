@@ -33,6 +33,9 @@ const Header = () => {
   const handleMoveToCartPage = () => {
     navigate(`/cart`);
   };
+  const handleMoveToOrderHistoryPage = () => {
+    navigate(`/order-history`);
+  }
   if (location.pathname === "/login" || location.pathname === "/register") {
     return null;
   }
@@ -71,7 +74,8 @@ const Header = () => {
               )}
             </div>
             <div style={{ fontSize:"20px" }} class="item itemCart">
-            <i class="fa-solid fa-cart-shopping fa-lg" onClick={handleMoveToCartPage}></i>{" "}
+            {user ? (<i style={{ marginLeft:" 1rem" }} class="fa-solid fa-address-card fa-lg" onClick={handleMoveToOrderHistoryPage}></i>) : null}
+            <i class="fa-solid fa-cart-shopping fa-lg" style={{ marginLeft:" 1rem" }} onClick={handleMoveToCartPage}></i>{" "}
               {cart ? `(${cart?.length})` : "(0)"}
             </div>
           </div>

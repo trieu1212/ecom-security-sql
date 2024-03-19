@@ -10,6 +10,7 @@ import Header from "./components/Header/Header";
 import { ToastContainer } from "react-toastify";
 import Footer from "./components/Footer/Footer";
 import AllProduct from "./pages/AllProduct/AllProduct";
+import OrderHistory from "./pages/OrderHistory/OrderHistory";
 function App() {
   return (
     <>
@@ -19,6 +20,7 @@ function App() {
           <Route path="/" element={<Home />} />
           <Route path="/checkout" element={<Checkout />} />
           <Route path="/cart/" element={<Cart />} />
+          <Route path="/order-history" element={<OrderHistory/>}/>
           <Route path="/product" element={<AllProduct/>}/>
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route path="/login" element={<Login />} />

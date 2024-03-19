@@ -39,7 +39,7 @@ const OrderController = {
             include: [
               {
                 model: db.Product,
-                attributes: ["title", "price"],
+                attributes: ["title", "price", "image"],
               },
             ],
           },

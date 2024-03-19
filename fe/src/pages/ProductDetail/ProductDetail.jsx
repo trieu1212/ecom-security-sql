@@ -33,6 +33,7 @@ const ProductDetail = () => {
   const product = useSelector((state) => state.product?.oneProduct);
   const comments = useSelector((state) => state.comment.comments);
   const commentFetching = useSelector((state) => state.comment.isFetching);
+  const order = useSelector((state)=>state.order.currentOrder)
   //hàm thêm comment
   const handleAddComment = async (e) => {
     e.preventDefault();
@@ -175,7 +176,7 @@ const ProductDetail = () => {
         <div className="comment">
           <h2 style={{ textAlign: "center", marginBottom:"1rem" }}>Đánh giá sản phẩm</h2>
           <div className="addComment">
-            {user ? (
+            {user && user.id ===+order.userId ? (
               <>
                 <div className="userIcon">
                   <i class="fa-solid fa-user fa-2xl"></i>
@@ -184,7 +185,7 @@ const ProductDetail = () => {
                 <div className="userComment">
                   <textarea
                     placeholder="Nhập nhận xét"
-                    cols="90"
+                    cols="150"
                     rows="3"
                     value={comment}
                     onChange={(e) => setComment(e.target.value)}
@@ -195,10 +196,10 @@ const ProductDetail = () => {
                 </div>
               </>
             ) : (
-              <h2>Hãy đăng nhập để bình luận!</h2>
+              <h2>Hãy MUA HÀNG để bình luận!</h2>
             )}
           </div>
-          <div className="viewComment">
+          <div className={comments? "viewComment" : ""}>
           {comments ? (
             <div className="viewCommentField" >
               {comments.map((comment) => (
