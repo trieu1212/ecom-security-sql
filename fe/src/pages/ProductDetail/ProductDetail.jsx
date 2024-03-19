@@ -32,6 +32,7 @@ const ProductDetail = () => {
   let axiosJWT = createAxios(user, dispatch, loginSuccess, refreshToken);
   const product = useSelector((state) => state.product?.oneProduct);
   const comments = useSelector((state) => state.comment.comments);
+  console.log(comments);
   const commentFetching = useSelector((state) => state.comment.isFetching);
   const order = useSelector((state)=>state.order.currentOrder)
   //hàm thêm comment
@@ -176,7 +177,7 @@ const ProductDetail = () => {
         <div className="comment">
           <h2 style={{ textAlign: "center", marginBottom:"1rem" }}>Đánh giá sản phẩm</h2>
           <div className="addComment">
-            {user && user.id ===+order.userId ? (
+            {user && user.id ===+order[0].userId ? (
               <>
                 <div className="userIcon">
                   <i class="fa-solid fa-user fa-2xl"></i>
@@ -200,7 +201,7 @@ const ProductDetail = () => {
             )}
           </div>
           <div className={comments? "viewComment" : ""}>
-          {comments ? (
+          {comments && comments.length>0 ? (
             <div className="viewCommentField" >
               {comments.map((comment) => (
                 <div className="viewOneComment" key={comment.id}>
@@ -226,7 +227,7 @@ const ProductDetail = () => {
               ))}
             </div>
           ) : (
-            <p>Chưa có đánh giá nào cho sản phẩm này</p>
+            <h3 style={{ textAlign:"center",margin:"0 3rem" }}>Chưa có đánh giá nào cho sản phẩm này</h3>
           )}
           </div>
         </div>

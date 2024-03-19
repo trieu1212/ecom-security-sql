@@ -150,6 +150,10 @@
     background-color:rgb(203, 201, 201);
     border-radius: 1rem;
 }
+textarea {
+    resize: vertical;
+    width: 100%; /* Đảm bảo rằng textarea mở rộng theo chiều ngang của container */
+  }
 .viewCommentField{
     margin: 1rem 1rem;
 }

@@ -36,7 +36,7 @@ const OrderHistory = () => {
   return (
     <>
       <h1 style={{ textAlign: "center", margin: "1rem 0" }}>
-        Thông tin tài khoản
+        Đơn hàng đã mua
       </h1>
       <div className="contentContainer">
         <div className="info">
@@ -71,7 +71,7 @@ const OrderHistory = () => {
                         );
                       })}
                     </div>
-                    <div>{hanldeJsonData(item.address)}</div>
+                    <div>Địa chỉ: {hanldeJsonData(item.address)}</div>
                     <div>Trạng thái: {item.status}!</div>
                     <div style={{ color:"red", fontSize:"22px" }}>{formatPrice(item.amount)}</div>
                   </div>
