@@ -8,7 +8,7 @@
     background-color: aliceblue;
     border-radius: 2rem;
     flex:30%;
-    height: 40%;
+    height: 30%;
 }
 .infoUser{
     padding: 3rem;
@@ -27,12 +27,12 @@
     border-radius: 2rem;
     display: flex;
     flex-direction: column;
+    justify-content: center;
 }
 .orderHistoryItem{
     margin: 1rem 1rem;
     display: flex;
     justify-content: space-between;
-    /* align-items: center; */
     padding: 1rem;
     background-color: white;
     border-radius: 0.7rem;
