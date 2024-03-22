@@ -49,6 +49,7 @@
 #banner .box-right img {
     margin:0px 10px;
     animation :animation 3s infinite linear; 
+    border-radius: 1.2rem;
 }
 
 
