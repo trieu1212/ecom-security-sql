@@ -5,6 +5,8 @@ import PublicRoute from "./routes/PublicRoute";
 import AdminRoute from "./routes/AdminRoute";
 import AdminHome from "./pages/ADMIN-PAGES/Home/AdminHome";
 import AdminProduct from "./pages/ADMIN-PAGES/Product/AdminProduct";
+import AdminUser from "./pages/ADMIN-PAGES/User/AdminUser";
+import AdminCategory from "./pages/ADMIN-PAGES/Category/AdminCategory";
 import Header from "./components/ADMIN-COMPONENTS/Header/Header";
 import Footer from "./components/ADMIN-COMPONENTS/Footer/Footer";
 import { useEffect } from "react";
@@ -29,6 +31,8 @@ function App() {
         <div className="content">
           <AdminRoute path="/admin/home" children={<AdminHome />} />
           <AdminRoute path="/admin/product" children={<AdminProduct />} />
+          <AdminRoute path="/admin/user" children={<AdminUser/>} />
+          <AdminRoute path="/admin/category" children={<AdminCategory/>} />
         </div>
         {renderFooter && <Footer />}
         <ToastContainer
