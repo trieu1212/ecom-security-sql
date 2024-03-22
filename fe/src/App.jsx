@@ -8,12 +8,13 @@ import AdminProduct from "./pages/ADMIN-PAGES/Product/AdminProduct";
 import Header from "./components/ADMIN-COMPONENTS/Header/Header";
 import Footer from "./components/ADMIN-COMPONENTS/Footer/Footer";
 import { useEffect } from "react";
+import Sidebar from "./components/ADMIN-COMPONENTS/Sidebar/Sidebar";
 function App() {
   const location = useLocation();
   const navigate = useNavigate()
   const renderHeader = location.pathname.includes("/admin");
   const renderFooter = location.pathname.includes("/admin");
-
+  const renderSidbar = location.pathname.includes("/admin");
   useEffect(()=>{
     if(location.pathname === "/admin" || location.pathname === "/admin/"){
       navigate("/admin/home")
@@ -24,8 +25,11 @@ function App() {
       <div className="app">
         <PublicRoute />
         {renderHeader && <Header />}
-        <AdminRoute path="/admin/home" children={<AdminHome />} />
-        <AdminRoute path="/admin/product" children={<AdminProduct />} />
+        {renderSidbar && <Sidebar />}
+        <div className="content">
+          <AdminRoute path="/admin/home" children={<AdminHome />} />
+          <AdminRoute path="/admin/product" children={<AdminProduct />} />
+        </div>
         {renderFooter && <Footer />}
         <ToastContainer
           position="top-center"

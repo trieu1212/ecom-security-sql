@@ -15,3 +15,7 @@
 .items {
   margin-bottom: 1rem;
 }
+.content{
+  margin-left: 200px; /* Đảm bảo nội dung không bị che khuất bởi side bar */
+    padding: 20px;
+}
