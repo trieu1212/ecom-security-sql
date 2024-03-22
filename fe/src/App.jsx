@@ -1,32 +1,32 @@
-import { Routes, Route } from "react-router-dom";
 import "./App.css";
-import Home from "./pages/Home/Home";
-import Login from "./pages/Login/Login";
-import Checkout from "./pages/Checkout/Checkout";
-import Cart from "./pages/Cart/Cart";
-import Register from "./pages/Register/Register";
-import ProductDetail from "./pages/ProductDetail/ProductDetail";
-import Header from "./components/Header/Header";
+import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import Footer from "./components/Footer/Footer";
-import AllProduct from "./pages/AllProduct/AllProduct";
-import OrderHistory from "./pages/OrderHistory/OrderHistory";
+import PublicRoute from "./routes/PublicRoute";
+import AdminRoute from "./routes/AdminRoute";
+import AdminHome from "./pages/ADMIN-PAGES/Home/AdminHome";
+import AdminProduct from "./pages/ADMIN-PAGES/Product/AdminProduct";
+import Header from "./components/ADMIN-COMPONENTS/Header/Header";
+import Footer from "./components/ADMIN-COMPONENTS/Footer/Footer";
+import { useEffect } from "react";
 function App() {
+  const location = useLocation();
+  const navigate = useNavigate()
+  const renderHeader = location.pathname.includes("/admin");
+  const renderFooter = location.pathname.includes("/admin");
+
+  useEffect(()=>{
+    if(location.pathname === "/admin" || location.pathname === "/admin/"){
+      navigate("/admin/home")
+    }
+  },[location.pathname,navigate])
   return (
     <>
       <div className="app">
-        <Header />
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/cart/" element={<Cart />} />
-          <Route path="/order-history" element={<OrderHistory/>}/>
-          <Route path="/product" element={<AllProduct/>}/>
-          <Route path="/product/:id" element={<ProductDetail />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
-        </Routes>
-        <Footer/>
+        <PublicRoute />
+        {renderHeader && <Header />}
+        <AdminRoute path="/admin/home" children={<AdminHome />} />
+        <AdminRoute path="/admin/product" children={<AdminProduct />} />
+        {renderFooter && <Footer />}
         <ToastContainer
           position="top-center"
           autoClose={2000}
