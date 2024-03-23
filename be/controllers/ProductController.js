@@ -18,6 +18,7 @@ const ProductController = {
               "inStock",
               "categoryId",
             ],
+            include: [{ model: db.Category, attributes: ["id", "name"] }],
             limit: parseInt(limit),
             offset: offset,
             where: categoryId && { categoryId: parseInt(categoryId) },
@@ -40,6 +41,7 @@ const ProductController = {
             "inStock",
             "categoryId",
           ],
+          include: [{ model: db.Category, attributes: ["id", "name"] }],
           limit: limit ? parseInt(limit) : 10,
           where: categoryId && { categoryId: parseInt(categoryId) },
         });
