@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import CategoryModal from '../../../components/ADMIN-COMPONENTS/CategoryModal/CategoryAdd'
+import CategoryModal from '../../../components/ADMIN-COMPONENTS/CategoryModal/CategoryModal'
 
 
 const AdminCategory = () => {
