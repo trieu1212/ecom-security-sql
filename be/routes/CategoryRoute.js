@@ -9,4 +9,5 @@ router.get('/',CategoryController.getAllCategory)
 router.put('/update/:categoryId/:userId',MiddlewareController.verifyTokenAndAdminAuth,CategoryController.updateCategory)
 router.delete('/delete/:categoryId/:userId',MiddlewareController.verifyTokenAndAdminAuth,CategoryController.deleteCategory)
 router.post('/create/:userId',MiddlewareController.verifyTokenAndAdminAuth,CategoryController.createCategory)
+router.get('/:categoryId/:userId',MiddlewareController.verifyTokenAndAdminAuth,CategoryController.getOneCategory)
 module.exports = router;

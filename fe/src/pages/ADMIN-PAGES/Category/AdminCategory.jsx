@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react'
 import axios from 'axios'
-import CategoryAdd from '../../../components/ADMIN-COMPONENTS/CategoryModal/CategoryAdd'
+import CategoryModal from '../../../components/ADMIN-COMPONENTS/CategoryModal/CategoryAdd'
+
 
 const AdminCategory = () => {
   const [categories, setCategories] = React.useState([])
@@ -15,6 +16,11 @@ const AdminCategory = () => {
   const handleAdd = () => {
       setShow(true)
       setTitle('Thêm danh mục sản phẩm')
+  }
+  const handleUpdate = (id) => {
+      setShow(true)
+      setTitle('Sửa danh mục sản phẩm')
+      setCategoryId(id)
   }
   const handleDelete = (id) => {
     setShow(true)
@@ -45,7 +51,7 @@ const AdminCategory = () => {
                 <td>{category.name}</td>
                 <td>{category.description}</td>
                 <td>
-                  <button className='btn btn-primary mx-2'>Sửa</button>
+                  <button className='btn btn-primary mx-2' onClick={()=>handleUpdate(category.id)}>Sửa</button>
                   <button className='btn btn-danger' onClick={()=>handleDelete(category.id)}>Xóa</button>
                 </td>
               </tr>
@@ -53,7 +59,7 @@ const AdminCategory = () => {
           })}
         </tbody>
       </table>
-      <CategoryAdd show={show} setShow={setShow} title={title} categoryId={categoryId}/>
+      <CategoryModal show={show} setShow={setShow} title={title} categoryId={categoryId}/>
     </>
   )
 }

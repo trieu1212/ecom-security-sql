@@ -43,6 +43,18 @@ const CategoryController = {
         } catch (error) {
             res.status(500).json({ message: error.message })
         }
+    },
+    getOneCategory: async (req, res) => {
+        const {categoryId} = req.params
+        try {
+            const category = await db.Category.findOne({
+                where:{id:categoryId},
+                attributes:['id','name','description']
+            })
+            res.status(200).json(category)
+        } catch (error) {
+            res.status(500).json({ message: error.message })
+        }
     }
 }
 
