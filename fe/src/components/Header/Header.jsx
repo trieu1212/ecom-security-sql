@@ -28,7 +28,10 @@ const Header = () => {
   const cart = useSelector((state) => state.cart?.currentCart);
   const handleLogout = (e) => {
     e.preventDefault();
-    logoutUser(axiosJWT, dispatch, navigate, accessToken, refreshToken);
+    const data={
+      refreshToken:refreshToken
+    }
+    logoutUser(axiosJWT, dispatch, navigate, accessToken, data);
   };
   const handleMoveToCartPage = () => {
     navigate(`/cart`);

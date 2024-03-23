@@ -177,7 +177,7 @@ const ProductDetail = () => {
         <div className="comment">
           <h2 style={{ textAlign: "center", marginBottom:"1rem" }}>Đánh giá sản phẩm</h2>
           <div className="addComment">
-            {user && user.id ===+order[0].userId ? (
+            {user && user?.id ===+order[0]?.userId ? (
               <>
                 <div className="userIcon">
                   <i class="fa-solid fa-user fa-2xl"></i>
