@@ -20,13 +20,13 @@ const PublicRoute = () => {
     {renderHeader && <Header />}
         <Routes>
           <Route exact path="/" element={<Home />} />
-          <Route path="/checkout" element={<Checkout />} />
-          <Route path="/cart/" element={<Cart />} />
-          <Route path="/order-history" element={<OrderHistory/>}/>
-          <Route path="/product" element={<AllProduct/>}/>
+          <Route exact path="/checkout" element={<Checkout />} />
+          <Route exact path="/cart/" element={<Cart />} />
+          <Route exact path="/order-history" element={<OrderHistory/>}/>
+          <Route exact path="/product" element={<AllProduct/>}/>
           <Route path="/product/:id" element={<ProductDetail />} />
           <Route exact path="/login" element={<Login />} />
-          <Route path="/register" element={<Register />} />
+          <Route exact path="/register" element={<Register />} />
         </Routes>
     {renderFooter && <Footer />} 
     </>
