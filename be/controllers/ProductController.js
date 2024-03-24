@@ -69,15 +69,22 @@ const ProductController = {
       res.status(500).json({ message: error.message });
     }
   },
-  // createProduct:async(req,res)=>{
-  //   const newProduct = new productModel(req.body);
-  //   try {
-  //     const product = await newProduct.save();
-  //     res.status(201).json(product);
-  //   } catch (err) {
-  //     res.status(500).json(err);
-  //   }
-  // }
+  createProduct: async(req,res)=>{
+    const {title,description,image,price,inStock,categoryId} = req.body
+    try {
+      const product = await db.Product.create({
+        title,
+        description,
+        image,
+        price,
+        inStock,
+        categoryId
+      })
+      res.status(201).json(product)
+    } catch (error) {
+      res.status(500).json({message:error.message})
+    }
+  }
 };
 
 module.exports = ProductController;

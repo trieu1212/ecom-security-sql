@@ -8,6 +8,7 @@ const AdminProduct = () => {
   const [products, setProducts] = React.useState([])
   const [currentPage, setCurrentPage] = React.useState(1);
   const [totalPages, setTotalPages] = React.useState(0);
+  const [productId, setProductId] = React.useState(0);
   useEffect(()=>{
     const getAllProduct = async()=>{
       const res = await axios.get(`http://localhost:7000/api/product/?limit=2&page=${currentPage}`)
@@ -15,13 +16,27 @@ const AdminProduct = () => {
       setProducts(res.data.product)
     }
     getAllProduct()
-  },[currentPage])
+  },[currentPage,show])
+  console.log(products)
   const handlePageClick = async(e) => {
     setCurrentPage(+e.selected+1);
   };
   const handleAdd = () =>{
     setTitle('Thêm sản phẩm')
     setShow(true)
+  }
+  const handleEdit = (id) =>{
+    setTitle('Sửa sản phẩm')
+    setShow(true)
+    setProductId(id)
+  }
+  const handleDelete = (id) =>{
+    setTitle('Xóa sản phẩm')
+    setShow(true)
+    setProductId(id)
+  }
+  const formatPrice = (price) =>{
+    return new Intl.NumberFormat('vi-VN', { style: 'currency', currency: 'VND' }).format(price);
   }
   return (
     <>
@@ -36,6 +51,7 @@ const AdminProduct = () => {
             <th>Hình ảnh</th>
             <th>Trạng thái</th>
             <th>Danh mục sản phẩm</th>
+            <th>Giá</th>
             <th>Thao tác</th>
           </tr>
         </thead>
@@ -49,16 +65,17 @@ const AdminProduct = () => {
                 <td><img src={product.image} alt={product.title} style={{width:"100px"}}/></td>
                 <td>{product.inStock ? 'Còn hàng' : 'Hết hàng'}</td>
                 <td>{product.Category.name}</td>
+                <td>{formatPrice(product.price)}</td>
                 <td>
-                  <button className='btn btn-primary mx-2'>Sửa</button>
-                  <button className='btn btn-danger'>Xóa</button>
+                  <button className='btn btn-primary mx-2' onClick={()=>handleEdit(product.id)}>Sửa</button>
+                  <button className='btn btn-danger' onClick={()=>handleDelete(product.id)}>Xóa</button>
                 </td>
               </tr>
             )
           })}
         </tbody>
       </table>
-      <ProductModal show={show} setShow={setShow} title={title} />
+      <ProductModal show={show} setShow={setShow} title={title} productId={productId} />
       <ReactPaginate
           nextLabel="next >"
           onPageChange={handlePageClick}
