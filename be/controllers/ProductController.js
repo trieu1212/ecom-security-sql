@@ -22,6 +22,7 @@ const ProductController = {
             limit: parseInt(limit),
             offset: offset,
             where: categoryId && { categoryId: parseInt(categoryId) },
+            order: [["id", "DESC"]],
           }
         )
         const data = {
@@ -44,6 +45,7 @@ const ProductController = {
           include: [{ model: db.Category, attributes: ["id", "name"] }],
           limit: limit ? parseInt(limit) : 10,
           where: categoryId && { categoryId: parseInt(categoryId) },
+          order: [["id", "DESC"]],
         });
         res.status(200).json(product);
       }
