@@ -17,7 +17,6 @@ const AdminProduct = () => {
     }
     getAllProduct()
   },[currentPage,show])
-  console.log(products)
   const handlePageClick = async(e) => {
     setCurrentPage(+e.selected+1);
   };

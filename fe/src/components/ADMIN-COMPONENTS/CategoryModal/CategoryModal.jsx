@@ -20,13 +20,13 @@ function CategoryModal(props) {
                     Authorization: `Bearer ${user?.accessToken}`,
                 },
             });
-            setName(res.data.name);
-            setDescription(res.data.description);
+            setName(res.data.name)
+            setDescription(res.data.description)
         }
         getCategory()
     }
     else return;
-  },[])
+  },[show,title,categoryId,user])
   const handleAction = async () => {
     if (title === "Thêm danh mục sản phẩm") {
       const data = {

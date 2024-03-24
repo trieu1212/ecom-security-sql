@@ -10,7 +10,6 @@ const AdminCategory = () => {
   const [categoryId, setCategoryId] = React.useState('')
   const getAllCategory = async() => {
       const res = await axios.get('http://localhost:7000/api/category')
-      console.log(res.data)
       setCategories(res.data)
   }
   const handleAdd = () => {

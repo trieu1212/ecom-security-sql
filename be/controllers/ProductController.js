@@ -95,7 +95,16 @@ const ProductController = {
     } catch (error) {
       res.status(500).json({message:error.message})
     }
-  }
+  },
+  getProductByIdAdmin: async(req,res)=>{
+    const {productId} = req.params
+    try {
+      const product = await db.Product.findByPk(productId)
+      res.status(200).json(product)
+    } catch (error) {
+      res.status(500).json({message:error.message})
+    }
+  },
 };
 
 module.exports = ProductController;
