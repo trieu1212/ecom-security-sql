@@ -48,7 +48,17 @@ const ProductModal = (props) => {
             }
         }
         else if(title === 'Xóa sản phẩm'){
-          
+          try {
+            await axiosJWT.delete(`http://localhost:7000/api/product/delete/${productId}/${user?.id}`,{
+              headers:{
+                Authorization: `Bearer ${user?.accessToken}`,
+              }
+            })
+            toast.success('Xóa sản phẩm thành công')
+            setShow(false)
+          } catch (error) {
+            toast.error('Xóa sản phẩm thất bại')
+          }
         }
     }
     const getAllCategory = async()=>{

@@ -84,6 +84,17 @@ const ProductController = {
     } catch (error) {
       res.status(500).json({message:error.message})
     }
+  },
+  deleteProduct: async(req,res)=>{
+    const {productId} = req.params
+    try {
+      await db.Product.destroy({
+        where:{id:productId}
+      })
+      res.status(200).json({message:'Xóa sản phẩm thành công'})
+    } catch (error) {
+      res.status(500).json({message:error.message})
+    }
   }
 };
 
