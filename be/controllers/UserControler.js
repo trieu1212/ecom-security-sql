@@ -40,18 +40,30 @@ const UserController = {
   },
   updateUser: async (req, res) => {
     const id = req.params.id;
-    const { username, email } = req.body;
+    const { username, email,isAdmin } = req.body;
     try {
       await db.User.update(
         {
           username: username,
           email: email,
+          isAdmin: isAdmin
         },
         {
           where: { id: id },
         }
       );
       res.status(200).json({ message: "update user success" });
+    } catch (error) {
+      res.status(500).json({ message: error.message });
+    }
+  },
+  getOneUser: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const user = await db.User.findOne({
+        where: { id: id },
+      });
+      res.status(200).json(user);
     } catch (error) {
       res.status(500).json({ message: error.message });
     }
