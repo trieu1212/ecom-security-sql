@@ -15,11 +15,11 @@ const CategoryController = {
         const {categoryId} = req.params
         const {name, description} = req.body
         try {
-            const category = await db.Category.update(
+             await db.Category.update(
                 {name,description},
                 {where:{id:categoryId}}
             )
-        res.status(200).json({message:'Category updated successfully'})
+        res.status(200).json({message:'Cập nhật danh mục thành công!'})
         } catch (error) {
             res.status(500).json({ message: error.message })
         }
@@ -27,10 +27,18 @@ const CategoryController = {
     deleteCategory: async (req,res)=>{
         const {categoryId} = req.params
         try {
-             await db.Category.destroy(
-                {where:{id:categoryId}}
-            )
-        res.status(200).json({message:'Category deleted successfully'})
+            const productInCategory = await db.Product.findAll({
+                where:{categoryId:categoryId}
+            })
+            if(productInCategory.length > 0) {
+                return res.status(400).json({message:'Danh mục còn chưa sản phẩm, không thể xóa!'})
+            }
+             else{
+                await db.Category.destroy(
+                    {where:{id:categoryId}}
+                )
+                res.status(200).json({message:'Xóa danh mục thành công'})
+             }
         } catch (error) {
             res.status(500).json({ message: error.message })
         }
@@ -39,7 +47,7 @@ const CategoryController = {
         const {name, description} = req.body
         try {
              await db.Category.create({name,description})
-        res.status(200).json({message:'Category created successfully'})
+        res.status(200).json({message:'Thêm danh mục thành công'})
         } catch (error) {
             res.status(500).json({ message: error.message })
         }
