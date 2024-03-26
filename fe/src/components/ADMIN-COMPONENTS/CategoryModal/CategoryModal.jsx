@@ -12,7 +12,7 @@ function CategoryModal(props) {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.login?.currentUser);
   let axiosJWT = createAxios(user, dispatch, loginSuccess, user?.refreshToken);
-  const handleClose = () => setShow(false);
+  const handleClose = () => {setShow(false); setName(""); setDescription("")};
   useEffect(() => {
     if (show && title === "Sửa danh mục sản phẩm") {
       const getCategory = async () => {

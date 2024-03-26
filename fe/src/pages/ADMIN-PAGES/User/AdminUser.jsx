@@ -32,9 +32,14 @@ const AdminUser = () => {
     setUserId(id)
     setShow(true)
   }
+  const handleAdd = () =>{
+    setTitle('Thêm người dùng')
+    setShow(true)
+  }
   return (
     <>
       <h1 style={{ textAlign:"center" }}>Quản lý người dùng</h1>
+      <button className='btn btn-success' onClick={handleAdd}>Thêm người dùng mới</button>
       <table className='table table-bordered table-striped'>
         <thead>
           <tr>

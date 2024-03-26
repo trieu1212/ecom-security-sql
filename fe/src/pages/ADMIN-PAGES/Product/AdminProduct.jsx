@@ -40,7 +40,7 @@ const AdminProduct = () => {
   return (
     <>
       <h1 style={{ textAlign:"center" }}>Tất cả sản phẩm</h1>
-      <button className='btn btn-success mb-2' onClick={handleAdd}>Thêm danh mục</button>
+      <button className='btn btn-success mb-2' onClick={handleAdd}>Thêm sản phẩm mới</button>
       <table className='table table-bordered table-striped'>
         <thead>
           <tr>

@@ -1,4 +1,4 @@
-const { raw } = require('body-parser');
+
 const db = require('../orm/models/index');
 const bcrypt = require('bcryptjs');
 const UserController = {

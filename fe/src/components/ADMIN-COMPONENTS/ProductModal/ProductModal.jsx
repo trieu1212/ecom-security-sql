@@ -21,6 +21,12 @@ const ProductModal = (props) => {
     let axiosJWT = createAxios(user, dispatch, loginSuccess, user?.refreshToken);
     const handleClose=()=>{
         setShow(false)
+        setName('')
+        setDescription('')
+        setImage('')
+        setInStock(false)
+        setCategoryId(0)
+        setPrice(0)
     }
     const handleAction = async () =>{
         if(title === 'Thêm sản phẩm'){
