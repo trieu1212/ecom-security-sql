@@ -10,6 +10,7 @@ const UserModal = (props) => {
     const [username, setUsername] = React.useState('')
     const [isAdmin, setIsAdmin] = React.useState(false)
     const [email, setEmail] = React.useState('')
+    const [password, setPassword] = React.useState('')
     const user =useSelector((state)=>state.auth?.login?.currentUser)
     const dispatch = useDispatch()
     let axiosJWT = createAxios(user, dispatch, loginSuccess, user?.refreshToken);
@@ -19,10 +20,10 @@ const UserModal = (props) => {
         setIsAdmin(false)
         setShow(false)
     }
-    const handleAction = () =>{
+    const handleAction = async() =>{
         if(title === 'Xóa người dùng'){
             try {
-                const response = axiosJWT.delete(`http://localhost:7000/api/user/delete/${userId}`,{
+                const response = await axiosJWT.delete(`http://localhost:7000/api/user/delete/${userId}`,{
                 headers:{
                     Authorization: `Bearer ${user?.accessToken}`
                 }
@@ -42,7 +43,36 @@ const UserModal = (props) => {
             }
         }
         else if(title === 'Sửa người dùng'){
-
+            const data ={
+                username,
+                isAdmin
+            }
+            try {
+                const res = await axiosJWT.put(`http://localhost:7000/api/user/update/${userId}`,data,{
+                    headers:{
+                        Authorization: `Bearer ${user?.accessToken}`
+                    }
+                })
+                toast.success(res.data.message)
+                setShow(false)
+            } catch (error) {
+                console.log(error)
+            }
+        }
+        else if(title === 'Thêm người dùng'){
+            const data = {
+                username,
+                email,
+                password,
+                isAdmin
+            }
+             await axiosJWT.post(`http://localhost:7000/api/user/create/${user?.id}`,data,{
+                headers:{
+                    Authorization: `Bearer ${user?.accessToken}`
+                }
+            }) 
+            toast.success("Thêm người dùng thành công")
+            setShow(false)
         }
     }
     useEffect(()=>{
@@ -87,6 +117,16 @@ const UserModal = (props) => {
                     id="email" 
                     placeholder="Nhập email"
                     onChange={(e)=>setEmail(e.target.value)}
+                    />
+                </div>
+                <div className="form-group">
+                    <label htmlFor="password">Password</label>
+                    <input type="password" 
+                    value={password} 
+                    className="form-control" 
+                    id="password" 
+                    placeholder="Nhập password"
+                    onChange={(e)=>setPassword(e.target.value)}
                     />
                 </div>
                 <div className="form-group ">

@@ -3,7 +3,7 @@ const db = require('../orm/models/index');
 const bcrypt = require('bcryptjs');
 const UserController = {
   createUser: async (req, res) => {
-    const { username, password, email } = req.body;
+    const { username, password, email,isAdmin } = req.body;
     try {
       const salt = bcrypt.genSaltSync(10);
       const hashPassword = bcrypt.hashSync(password, salt);
@@ -11,6 +11,7 @@ const UserController = {
         username: username,
         email: email,
         password: hashPassword,
+        isAdmin: isAdmin
       });
       res.status(200).json(newUser);
     } catch (error) {
