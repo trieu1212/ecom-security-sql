@@ -1,0 +1,36 @@
+.navAdmin{
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    gap:1rem
+}
+.navItem{
+    padding: 1rem;
+    background-color: #f1f1f1;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: all 0.3s;
+}
+.navItem:hover{
+    box-shadow:  0 0 10px #15d481;
+}
+.report{
+    background-color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    gap: 1rem;
+    margin-top: 1rem;
+
+}
+.reportHeader{
+    padding: 1rem;
+    border-radius: 5px;
+    margin-top: 1rem;
+    display: flex;
+    justify-content: space-around;
+    gap: 1rem;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+}
