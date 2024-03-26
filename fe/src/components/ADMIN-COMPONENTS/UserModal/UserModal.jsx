@@ -8,7 +8,7 @@ import { toast } from 'react-toastify';
 const UserModal = (props) => {
     const {show, setShow, title, userId} = props
     const [username, setUsername] = React.useState('')
-    const [isAdmin, setIsAdmin] = React.useState(false)
+    const [isAdmin, setIsAdmin] = React.useState(0)
     const [email, setEmail] = React.useState('')
     const [password, setPassword] = React.useState('')
     const user =useSelector((state)=>state.auth?.login?.currentUser)
@@ -165,8 +165,8 @@ const UserModal = (props) => {
                 <div className="form-group ">
                     <label htmlFor="">Chức vụ</label>
                     <select value={isAdmin} onChange={(e)=>setIsAdmin(e.target.value)} className='form-control'>
-                        <option value={true}>Admin</option>
-                        <option value={false}>Người dùng</option>
+                        <option value={1}>Admin</option>
+                        <option value={0}>Người dùng</option>
                     </select>
                 </div>
             </form>
