@@ -152,7 +152,7 @@
 }
 textarea {
     resize: vertical;
-    width: 100%; /* Đảm bảo rằng textarea mở rộng theo chiều ngang của container */
+    width: 100%; 
   }
 .viewCommentField{
     margin: 1rem 1rem;

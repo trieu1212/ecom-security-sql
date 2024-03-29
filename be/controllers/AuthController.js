@@ -1,6 +1,8 @@
 const bcrypt = require("bcryptjs");
 const db = require("../orm/models/index");
 const jwt = require("jsonwebtoken");
+const { QueryTypes } = require("sequelize");
+//sequelize raw queries
 const AuthController = {
   generateAccessToken: (user) => {
     return jwt.sign(
@@ -38,6 +40,7 @@ const AuthController = {
       res.status(500).json({ message: error.message });
     }
   },
+  //login using ORM
   loginUser: async (req, res) => {
     const { username, password } = req.body;
     try {
@@ -65,6 +68,38 @@ const AuthController = {
       res.status(500).json({ message: error.message });
     }
   },
+  //login using raw queries
+  // loginUser: async (req, res) => {
+  //   const { username, password } = req.body;
+  //   try {
+  //     const query = `
+  //       SELECT * FROM user
+  //       WHERE username = '${username}' AND password = '${password}'
+  //       LIMIT 1
+  //     `;
+  //     const [user] = await db.sequelize.query(query, {
+  //       type: QueryTypes.SELECT,
+  //     });
+
+  //     if (!user) {
+  //       return res.status(400).json({ message: "User not found" });
+  //     }
+
+  //     const accessToken = AuthController.generateAccessToken(user);
+  //     const refreshToken = AuthController.generateRefreshToken(user);
+
+  //     await db.User.update(
+  //       { refreshToken: refreshToken },
+  //       { where: { username: user.username } }
+  //     );
+
+  //     const { password: _, ...userInfo } = user;
+  //     res.status(200).json({ ...userInfo, accessToken, refreshToken });
+  //   } catch (error) {
+  //     res.status(500).json({ message: error.message });
+  //   }
+  // },
+
   refresh: async (req, res) => {
     const { refreshToken } = req.body;
     if (!refreshToken) {

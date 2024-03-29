@@ -6,7 +6,6 @@ import SaleOff from '../../components/SaleOff/SaleOff'
 import HomeComment from '../../components/HomeComment/HomeComment'
 import './Home.css'
 const Home = () => {
-  const user = useSelector((state) => state.auth.login?.currentUser)
   return (
     <>
         <div className='homeContainer'>

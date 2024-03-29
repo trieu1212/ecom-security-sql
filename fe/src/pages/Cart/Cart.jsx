@@ -57,9 +57,6 @@ const Cart = () => {
   const handleNavigateToCheckout = () => {
     navigate("/checkout", { state: { totalPrice: totalPrice } });
   };
-  const handleNavigateToProducts = () => {
-    navigate("/product");
-  };
   //Xóa sản phẩm khỏi giỏ hàng
   const handleDeleteProduct = async (productId) => {
     await deleteUserCart(
