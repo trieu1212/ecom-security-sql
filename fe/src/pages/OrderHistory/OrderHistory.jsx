@@ -50,7 +50,7 @@ const OrderHistory = () => {
           </div>
         </div>
         <div className="orderHistory">
-          {order ? (
+          {order && order.length>0 ? (
             order.map((item) => {
               return (
                 <>
@@ -79,7 +79,7 @@ const OrderHistory = () => {
               );
             })
           ) : (
-            <h1>Không có đơn hàng nào</h1>
+            <h1 style={{ textAlign:"center" }}>Không có đơn hàng nào</h1>
           )}
         </div>
       </div>

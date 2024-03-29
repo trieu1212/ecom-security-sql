@@ -32,7 +32,6 @@ const ProductDetail = () => {
   let axiosJWT = createAxios(user, dispatch, loginSuccess, refreshToken);
   const product = useSelector((state) => state.product?.oneProduct);
   const comments = useSelector((state) => state.comment.comments);
-  console.log(comments);
   const commentFetching = useSelector((state) => state.comment.isFetching);
   const order = useSelector((state)=>state.order.currentOrder)
   //hàm thêm comment
