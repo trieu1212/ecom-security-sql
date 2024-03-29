@@ -16,7 +16,6 @@ const Checkout = () => {
   const [payment, setPayment] = useState("");
   const user = useSelector((state) => state.auth.login?.currentUser);
   const cart = useSelector((state) => state.cart?.currentCart);
-  console.log(cart);
   let axiosJWT = createAxios(user, dispatch, loginSuccess, user?.refreshToken);
   const navigate = useNavigate();
   const totalPrice = location?.state?.totalPrice;

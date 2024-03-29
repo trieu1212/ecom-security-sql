@@ -147,8 +147,12 @@
 }
 .viewComment{
     margin: 1rem 2rem;
-    background-color:rgb(203, 201, 201);
+    /* background-color:rgb(203, 201, 201); */
     border-radius: 1rem;
+    box-shadow:  0 0 5px #000000;
+}
+.addComment{
+    box-shadow:  0 0 5px #000000;
 }
 textarea {
     resize: vertical;

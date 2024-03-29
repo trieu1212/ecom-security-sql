@@ -176,7 +176,7 @@ const ProductDetail = () => {
         <div className="comment">
           <h2 style={{ textAlign: "center", marginBottom:"1rem" }}>Đánh giá sản phẩm</h2>
           <div className="addComment">
-            {user && user?.id ===+order[0]?.userId ? (
+            {user ? (
               <>
                 <div className="userIcon" style={{ marginRight:"2rem" }}>
                   <i class="fa-solid fa-user fa-2xl"></i>
@@ -196,7 +196,7 @@ const ProductDetail = () => {
                 </div>
               </>
             ) : (
-              <h2>Hãy MUA HÀNG để bình luận!</h2>
+              <h2>Hãy ĐĂNG NHẬP để bình luận!</h2>
             )}
           </div>
           <div className={comments? "viewComment" : ""}>
