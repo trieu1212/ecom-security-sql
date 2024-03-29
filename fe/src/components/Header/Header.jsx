@@ -61,7 +61,7 @@ const Header = () => {
             </div>
             {user?.isAdmin && user?.accessToken ? (
               <div class="item">
-                <Link to="/admin">ADMIN</Link>
+                <Link to="/admin/category">ADMIN</Link>
               </div>
             ) : null}
           </div>

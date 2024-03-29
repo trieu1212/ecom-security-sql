@@ -6,7 +6,6 @@ const Sidebar = () => {
     <>
         <div class="sidebar">
         <ul>
-            <li><Link to="/admin/home">Trang chủ</Link></li>
             <li><Link to="/admin/category">Danh mục</Link></li>
             <li><Link to="/admin/product">Sản phẩm</Link></li>
             <li><Link to="/admin/user">Người dùng</Link></li>

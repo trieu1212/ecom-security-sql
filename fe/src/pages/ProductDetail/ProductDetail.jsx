@@ -179,7 +179,7 @@ const ProductDetail = () => {
           <div className="addComment">
             {user && user?.id ===+order[0]?.userId ? (
               <>
-                <div className="userIcon">
+                <div className="userIcon" style={{ marginRight:"2rem" }}>
                   <i class="fa-solid fa-user fa-2xl"></i>
                   <h3>{user?.username}</h3>
                 </div>

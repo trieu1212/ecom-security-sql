@@ -3,7 +3,6 @@ import { useLocation, useNavigate } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
 import PublicRoute from "./routes/PublicRoute";
 import AdminRoute from "./routes/AdminRoute";
-import AdminHome from "./pages/ADMIN-PAGES/Home/AdminHome";
 import AdminProduct from "./pages/ADMIN-PAGES/Product/AdminProduct";
 import AdminUser from "./pages/ADMIN-PAGES/User/AdminUser";
 import AdminCategory from "./pages/ADMIN-PAGES/Category/AdminCategory";
@@ -19,7 +18,7 @@ function App() {
   const renderSidbar = location.pathname.includes("/admin");
   useEffect(()=>{
     if(location.pathname === "/admin" || location.pathname === "/admin/"){
-      navigate("/admin/home")
+      navigate("/admin/category")
     }
   },[location.pathname,navigate])
   return (
@@ -29,7 +28,6 @@ function App() {
         {renderHeader && <Header />}
         {renderSidbar && <Sidebar />}
         <div className="content">
-          <AdminRoute path="/admin/home" children={<AdminHome />} />
           <AdminRoute path="/admin/product" children={<AdminProduct />} />
           <AdminRoute path="/admin/user" children={<AdminUser/>} />
           <AdminRoute path="/admin/category" children={<AdminCategory/>} />
