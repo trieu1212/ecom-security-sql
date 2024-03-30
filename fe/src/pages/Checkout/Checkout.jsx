@@ -123,11 +123,12 @@ const Checkout = () => {
               return (
                 <>
                   <div className="checkoutOrderitems">
-                    <Link to={`/product/${item.Product.id}`}><img src={item.Product.image} alt="" /></Link>
+                    <div className="reviewImg"><Link to={`/product/${item.Product.id}`}><img src={item.Product.image} alt="" /></Link></div>
                     <h3>{item.Product.title}</h3>
                     <h3>Số lượng: {item.quantity}</h3>
                     <h3>Giá: {formatPrice(item.Product.price)}</h3>
                   </div>
+                  <hr />
                 </>
               );
             })}
