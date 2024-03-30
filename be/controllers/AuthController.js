@@ -60,8 +60,8 @@ const AuthController = {
             { refreshToken: refreshToken },
             { where: { username: username } }
           );
-          const { password, ...info } = user.dataValues;
-          res.status(200).json({ ...info, accessToken, refreshToken });
+          const { password:_, ...info } = user.dataValues;
+          res.status(200).json({ ...info, accessToken,refreshToken });
         }
       }
     } catch (error) {
