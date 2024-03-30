@@ -27,11 +27,11 @@ function App() {
         <PublicRoute />
         {renderHeader && <Header />}
         {renderSidbar && <Sidebar />}
-        <div className="content">
+        {/* <div className="content"> */}
           <AdminRoute path="/admin/product" children={<AdminProduct />} />
           <AdminRoute path="/admin/user" children={<AdminUser/>} />
           <AdminRoute path="/admin/category" children={<AdminCategory/>} />
-        </div>
+        {/* </div> */}
         {renderFooter && <Footer />}
         <ToastContainer
           position="top-center"

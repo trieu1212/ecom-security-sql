@@ -37,15 +37,17 @@ const CommentController = {
   //   try {
   //     const { comment, productId } = req.body;
   //     const { userId } = req.params;
-  
-  //     // WARNING: Vulnerable to SQL injection
+
   //     const query = `
-  //       INSERT INTO comments (comment, userId, productId)
-  //       VALUES ('${comment}', '${userId}', '${productId}')
+  //       INSERT INTO comment (comment, userId, productId)
+  //       VALUES (?, ?, ?)
   //     `;
-  
-  //     await db.sequelize.query(query, { type: QueryTypes.INSERT });
-  
+
+  //     await db.sequelize.query(query, {
+  //       replacements: [comment, userId, productId],
+  //       type: QueryTypes.INSERT
+  //     });
+
   //     res.status(201).json({ message: "Comment created successfully" });
   //   } catch (error) {
   //     res.status(500).json({ message: error.message });
