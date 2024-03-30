@@ -14,6 +14,7 @@ const Checkout = () => {
   const [nation, setNation] = useState("");
   const [address, setAddress] = useState("");
   const [payment, setPayment] = useState("");
+  const [cartItems, setCartItems] = useState([]); 
   const user = useSelector((state) => state.auth.login?.currentUser);
   const cart = useSelector((state) => state.cart?.currentCart);
   let axiosJWT = createAxios(user, dispatch, loginSuccess, user?.refreshToken);
@@ -22,6 +23,25 @@ const Checkout = () => {
   if (!user) {
     navigate("/");
   }
+  useEffect(() => {
+    if (cart) {
+      cartList(cart);
+    }
+  }, []);
+  const cartList = (cartItems) => {
+    const groupedItems = cartItems.reduce((acc, currentItem) => {
+      const existingItem = acc.find(
+        (item) => item.productId === currentItem.productId
+      );
+      if (existingItem) {
+        existingItem.quantity += currentItem.quantity;
+      } else {
+        acc.push({ ...currentItem });
+      }
+      return acc;
+    }, []);
+    setCartItems(groupedItems);
+  };
   const formatPrice = (price) => {
     return new Intl.NumberFormat("vi-VN", {
       style: "currency",
@@ -99,7 +119,7 @@ const Checkout = () => {
         </div>
         <div className="checkoutOrder">
           <div>
-            {cart?.map((item) => {
+            {cartItems?.map((item) => {
               return (
                 <>
                   <div className="checkoutOrderitems">
