@@ -82,3 +82,40 @@
     left:50%;
     transform:translateX(-50%);
 }
+
+@media (max-width: 768px) {
+    #banner {
+      height: auto;
+      padding: 20px;
+      flex-direction: column;
+    }
+  
+    #banner .row {
+      flex-direction: column;
+    }
+  
+    #banner .box-left, #banner .box-right {
+      width: 100%;
+      padding: 0;
+      text-align: center;
+    }
+  
+    #banner .box-left h2 {
+      font-size: 32px;
+      margin-top: 20px;
+    }
+  
+    #banner .box-right {
+      padding: 0;
+    }
+  
+    #banner .box-right img {
+      width: 100%;
+      margin: 10px 0;
+    }
+  
+    #banner .to-bottom {
+      position: static;
+      margin-top: 20px;
+    }
+  }
