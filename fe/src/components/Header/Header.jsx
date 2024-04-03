@@ -116,14 +116,11 @@ const Header = () => {
                             <li className="nav-item">
                                 <Link to="/product" className="nav-link">Sản phẩm</Link>
                             </li>
-                            {/* <li className="nav-item">
-                                <Link to="/contact" className="nav-link">Liên hệ</Link>
-                            </li> */}
-                            {user?.isAdmin && user?.accessToken && (
+                            {user?.isAdmin && user?.accessToken ? (
                                 <li className="nav-item">
                                     <Link to="/admin/category" className="nav-link">ADMIN</Link>
                                 </li>
-                            )}
+                            ):null}
                         </ul>
                     </nav>
                 </div>

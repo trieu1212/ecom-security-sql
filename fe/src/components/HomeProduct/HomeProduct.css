@@ -103,11 +103,27 @@
 @media (max-width: 992px) {
     #list-products .item {
         width: calc(50% - 20px); /* Hiển thị 2 cột trên mỗi hàng trên các thiết bị nhỏ hơn */
+        width: 100%; /* Đảm bảo mỗi sản phẩm chiếm toàn bộ chiều rộng trên thiết bị nhỏ hơn */
+        height: auto; ; /* Thêm thuộc tính max-width để không bóp hình ảnh quá nhỏ */
+    }
+    #list-products .item .productImage {
+        width: 100%; /* Đảm bảo mỗi sản phẩm chiếm toàn bộ chiều rộng trên thiết bị nhỏ hơn */
+        height: auto; ; /* Sử dụng auto cho chiều cao để giữ tỷ lệ hình ảnh */
+    }
+    
+    #list-products .item .name {
+        font-size: 18px; /* Giảm kích thước font cho tên sản phẩm */
+    }
+    
+    #list-products .item .priceProduct {
+        font-size: 16px; /* Giảm kích thước font cho giá */
+        margin-top: 0.3rem; /* Giảm khoảng cách trên giữa tên sản phẩm và giá */
     }
 }
 
 @media (max-width: 576px) {
     #list-products .item {
-        width: calc(100% - 20px); /* Hiển thị 1 cột trên mỗi hàng trên điện thoại */
+        width: 100%; /* Đảm bảo mỗi sản phẩm chiếm toàn bộ chiều rộng trên thiết bị nhỏ hơn */
+        height: auto; /* Hiển thị 1 cột trên mỗi hàng trên điện thoại */
     }
 }
