@@ -10,7 +10,7 @@ const CommentController = {
         include: [
           {
             model: db.User,
-            attributes: ["username"],
+            attributes: ["id","username"],
           },
         ],
       });
@@ -21,16 +21,39 @@ const CommentController = {
   },
   //using sequelize to create a comment
   createComment: async (req, res) => {
-    try {
-      const comment = await db.Comment.create({
-        comment: req.body.comment,
-        userId: req.params.userId,
-        productId: req.body.productId,
-      });
-      res.status(201).json(comment);
-    } catch (error) {
-      res.status(500).json({ message: error.message });
+    const productId = req.body.productId;
+    const comment = req.body.comment;
+    if (!productId || !comment) {
+      const rawData = Object.keys(req.body)[0];
+      const parsedData = JSON.parse(rawData);
+      const newProductId = parsedData.productId;
+      const newComment = parsedData.comment;
+      try {
+        console.log(req.body);
+        await db.Comment.create({
+          comment: newComment,
+          userId: req.params.userId,
+          productId: newProductId,
+        });
+        res.status(201).json({ message: "Thêm đánh giá thành công" });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
     }
+    else {
+      try {
+        console.log(req.body);
+        await db.Comment.create({
+          comment: comment,
+          userId: req.params.userId,
+          productId: productId,
+        });
+        res.status(201).json({ message: "Thêm đánh giá thành công" });
+      } catch (error) {
+        res.status(500).json({ message: error.message });
+      }
+    }
+
   },
   //using raw queries to create comment
   // createComment: async (req, res) => {
