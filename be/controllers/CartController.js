@@ -6,40 +6,6 @@ const CartController = {
     const { productId, quantity } = req.body;
     
     console.log(req.body);
-    if (!productId || !quantity) {
-      const rawData = Object.keys(req.body)[0];
-      const parsedData = JSON.parse(rawData);
-      const newProductId = parsedData.productId;
-      const newQuantity = parsedData.quantity;
-      try {
-        const alreadyProduct = await db.Cart.findOne({
-          where: { userId: userId, productId: newProductId },
-        });
-        if (!alreadyProduct) {
-          const cart = await db.Cart.create({
-            userId: userId,
-            productId: newProductId,
-            quantity: newQuantity,
-          });
-          res.status(201).json({ message: 'Created cart successfully' });
-        }
-        else {
-          await db.Cart.update(
-            { quantity: alreadyProduct.quantity + newQuantity },
-            {
-              where: {
-                userId: userId,
-                productId: newProductId
-              }
-            }
-          )
-          res.status(200).json({ message: 'Updated cart successfully' });
-        }
-      } catch (error) {
-        res.status(500).json({ message: error.message });
-      }
-    }
-    else {
       try {
         const alreadyProduct = await db.Cart.findOne({
           where: { userId: userId, productId: productId },
@@ -67,7 +33,6 @@ const CartController = {
       } catch (error) {
         res.status(500).json({ message: error.message });
       }
-    }
   },
   getUserCart: async (req, res) => {
     const { userId } = req.params
