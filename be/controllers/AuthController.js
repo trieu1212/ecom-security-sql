@@ -220,7 +220,7 @@ const  AuthController = {
         where: { email: email }
       })
       if (!user) {
-        throw new Error('Email không hợp lệ')
+        throw new Error('Email không hợp lệ') 
       }
       else {
         const resetToken = crypto.randomBytes(32).toString('hex');
@@ -230,7 +230,7 @@ const  AuthController = {
           { passwordResetToken: passwordResetToken, passwordResetExpires: passwordResetExpires },
           { where: { email: email } }
         )
-        const html = `Hãy click vào link dưới đây để thay đổi mật khẩu của bạn. Link này sẽ hết hạn sau 15 phút kể từ khi bạn nhận mail này <a href=${process.env.URL_SERVER}/api/user/reset-password/${resetToken}>Click here!</a>`
+        const html = `Hãy click vào link dưới đây để thay đổi mật khẩu của bạn. Link này sẽ hết hạn sau 15 phút kể từ khi bạn nhận mail này <a href=${process.env.URL_CLIENT}/reset-password/${email}/${resetToken}>Click here!</a>`
         const data = {
           email : email,
           html: html
